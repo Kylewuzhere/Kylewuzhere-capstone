@@ -1,16 +1,11 @@
 import React from "react";
+import { LogoutButton } from "./logoutButton";
 
 const Header = () => {
   return (
-    <header className="bg-black text-white py-7 px-7 flex items-center justify-between">
-      <img
-        src="/images/logo-transparent.png"
-        alt="Logo"
-        className="h-12 w-auto mx-4 my-5"
-      />
-      <button className="text-white bg-orange py-3 px-7 rounded text-sm">
-        LOG OUT
-      </button>
+    <header className="h-12 bg-black text-white py-7 px-7 flex items-center justify-between">
+      <img className="max-h-8" src="/images/logo-transparent.png" alt="Logo" />
+      <LogoutButton />
     </header>
   );
 };
