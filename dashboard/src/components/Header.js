@@ -8,7 +8,7 @@ const Header = () => {
         alt="Logo"
         className="h-12 w-auto mx-4 my-5"
       />
-      <button className="text-white bg-orange py-3 pr-7 pl-7 rounded text-sm">
+      <button className="text-white bg-orange py-3 px-7 rounded text-sm">
         LOG OUT
       </button>
     </header>
