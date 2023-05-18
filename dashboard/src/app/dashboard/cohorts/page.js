@@ -14,8 +14,6 @@ export default async function Cohorts() {
     { name: "Cohort 6", id: "6" },
     { name: "Cohort 7", id: "7" },
     { name: "Cohort 8", id: "8" },
-    { name: "Cohort 9", id: "9" },
-    { name: "Cohort 10", id: "10" },
   ];
   // dummy cohorts
 
@@ -26,14 +24,14 @@ export default async function Cohorts() {
   }
 
   return (
-    <div className="flex flex-wrap gap-3 w-1/2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-1/2">
       {cohorts.map((cohort) => (
         <Link
           key={cohort.id}
-          className="flex justify-center items-center w-[45%] h-24 m-auto bg-white border-2 border-black rounded"
-          href={`/dashboard/cohorts/${cohort.id}`}
+          className="flex justify-center items-center p-8 bg-white border-2 border-black rounded"
+          href={`/dashboard/cohorts`}
         >
-          <span>{cohort.name}</span>
+          <span className="text-sm">{cohort.name}</span>
         </Link>
       ))}
     </div>
