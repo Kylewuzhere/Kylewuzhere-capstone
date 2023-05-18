@@ -10,22 +10,19 @@ const Sidebar = () => {
       title: "Cohorts",
     },
   ];
+
   return (
-    <aside className="bg-grey-dark w-full md:w-60">
-      <nav>
-        <ul>
-          {items.map(({ href, title }) => (
-            <li className="m-10" key={title}>
-              <Link
-                className={`flex p-5 text-white bg-grey-button rounded hover:bg-slate-100 hover:text-black cursor-pointer`}
-                href={href}
-              >
-                {title}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+    <aside className="col-span-2 p-2 mt-10">
+      <ul className="flex flex-col gap-4 text-center">
+        {items.map(({ href, title }) => (
+          <Link
+            className="w-2/3 mx-auto text-center p-6 text-white bg-grey-button rounded hover:bg-slate-100 hover:text-black"
+            href={href}
+          >
+            {title.toUpperCase()}
+          </Link>
+        ))}
+      </ul>
     </aside>
   );
 };
