@@ -12,7 +12,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="col-span-2 p-2 mt-10">
+    <aside className="col-span-2 p-2 mt-40">
       <ul className="flex flex-col gap-4 text-center">
         {items.map(({ href, title }) => (
           <Link
