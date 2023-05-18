@@ -7,7 +7,11 @@ export default function RootLayout({ children }) {
       {/* min-h-screen allows the background color: grey-dark to fully fill the background*/}
       <div className="flex flex-grow flex-col md:flex-row flex-1 bg-grey-dark min-h-screen">
         <Sidebar />
-        <main className="flex-1 bg-grey-dark">{children}</main>
+        <div className="flex-1">
+          <div className="flex justify-center grow-0 bg-grey-md m-10">
+            {children}
+          </div>
+        </div>
       </div>
     </>
   );
