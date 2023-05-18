@@ -1,18 +1,15 @@
 import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar";
+
 export default function RootLayout({ children }) {
   return (
-    <>
+    <main className="bg-grey-dark h-screen">
       <Header />
-      {/* min-h-screen allows the background color: grey-dark to fully fill the background*/}
-      <div className="flex flex-grow flex-col md:flex-row flex-1 bg-grey-dark min-h-screen">
+      {/* h-screen allows the background color: grey-dark to fully fill the background*/}
+      <div className="w-screen grid grid-cols-12">
         <Sidebar />
-        <div className="flex-1">
-          <div className="flex justify-center grow-0 bg-grey-md m-10">
-            {children}
-          </div>
-        </div>
+        <div className="col-span-10 bg-grey-md flex justify-center items-center h-screen pb-48">{children}</div>
       </div>
-    </>
+    </main>
   );
 }
