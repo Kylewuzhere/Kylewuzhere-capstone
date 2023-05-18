@@ -12,11 +12,11 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="col-span-2 p-2 mt-40">
+    <aside className="fixed left-0 top-12 pt-24 h-[calc(100%-3rem)] w-40 bg-black col-span-2 px-2">
       <ul className="flex flex-col gap-4 text-center">
         {items.map(({ href, title }) => (
           <Link
-            className="w-2/3 mx-auto text-center p-6 text-white bg-grey-button rounded hover:bg-slate-100 hover:text-black"
+            className="mx-auto text-center p-6 text-white text-xs bg-grey-button rounded hover:bg-slate-100 hover:text-black"
             href={href}
           >
             {title.toUpperCase()}
