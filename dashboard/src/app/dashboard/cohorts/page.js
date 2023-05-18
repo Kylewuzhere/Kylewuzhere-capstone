@@ -14,6 +14,16 @@ export default async function Cohorts() {
     { name: "Cohort 6", id: "6" },
     { name: "Cohort 7", id: "7" },
     { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
+    { name: "Cohort 8", id: "8" },
   ];
   // dummy cohorts
 
@@ -24,7 +34,7 @@ export default async function Cohorts() {
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-1/2">
+    <div className="mt-12 w-1/2 h-[calc(100%-10%)] grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-scroll">
       {cohorts.map((cohort) => (
         <Link
           key={cohort.id}
