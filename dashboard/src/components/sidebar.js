@@ -2,6 +2,8 @@ import React from "react";
 import Link from "next/link";
 
 const Sidebar = () => {
+  // Credits for the sidebar:
+  // https://daily-dev-tips.com/posts/creating-a-sidebar-layout-in-nextjs-with-tailwind/
   const items = [
     {
       href: "/dashboard/cohorts",
