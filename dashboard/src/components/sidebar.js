@@ -20,7 +20,8 @@ const Sidebar = () => {
       <ul className="flex flex-col gap-4 text-center">
         {items.map(({ href, title }) => (
           <Link
-            className="mx-auto text-center p-6 text-white text-xs bg-grey-button rounded hover:bg-slate-100 hover:text-black"
+            // className="mx-auto text-center p-6 text-white text-xs bg-grey-button rounded hover:bg-slate-100 hover:text-black"
+            className="mx-auto text-center p-6 text-black text-xs bg-grey-button rounded hover:bg-orange hover:text-black"
             href={href}
           >
             {title.toUpperCase()}

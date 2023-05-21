@@ -38,7 +38,7 @@ export default async function Cohorts() {
       {cohorts.map((cohort) => (
         <Link
           key={cohort.id}
-          className="flex justify-center items-center p-8 bg-white border-2 border-black rounded"
+          className="flex justify-center items-center p-8 bg-grey border-2 border-black rounded"
           href={`/dashboard/cohorts`}
         >
           <span className="text-sm">{cohort.name}</span>
