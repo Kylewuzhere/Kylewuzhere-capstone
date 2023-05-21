@@ -9,6 +9,10 @@ const Sidebar = () => {
       href: "/dashboard/cohorts",
       title: "Cohorts",
     },
+    {
+      href: "/dashboard/students",
+      title: "Students",
+    },
   ];
 
   return (
