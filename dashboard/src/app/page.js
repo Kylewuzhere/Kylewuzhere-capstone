@@ -1,10 +1,10 @@
 import { LoginButton } from "../components/loginButton";
-import InitialHeader from "@/components/InitialHeader";
+import Header from "@/components/InitialHeader";
 
 export default function Home() {
   return (
     <>
-      <InitialHeader />
+      <Header />
       <div className="flex min-h-screen pb-24 items-center justify-center bg-grey-dark">
         <LoginButton />
       </div>
