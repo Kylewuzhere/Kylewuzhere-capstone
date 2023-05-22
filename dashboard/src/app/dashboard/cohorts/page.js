@@ -3,9 +3,18 @@ import Link from "next/link";
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-import { GetCohorts } from "@/app/utils";
 
 export default async function Cohorts() {
+
+  async function GetCohorts() {
+    // Call the /cohort route with a GET request
+    const query = await fetch("http://localhost:3000/api/cohort");
+    const response = await query.json();
+
+    // Returns an array of cohort names and id's
+    return response.rows;
+  }
+
   const cohorts = await GetCohorts();
   const session = await getServerSession(authOptions);
 
