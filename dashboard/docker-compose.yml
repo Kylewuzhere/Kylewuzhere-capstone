@@ -9,7 +9,8 @@ services:
       - db
     volumes:
       - ./:/app
-      - /node_modules
+      - /app/node_modules
+      - /app/.next
   db:
     build:
       context: ./src/db
