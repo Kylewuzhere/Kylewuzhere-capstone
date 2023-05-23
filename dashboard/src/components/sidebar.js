@@ -11,7 +11,7 @@ const Sidebar = () => {
     },
     {
       href: "/dashboard/students",
-      title: "Students",
+      title: "Learners",
     },
   ];
 
