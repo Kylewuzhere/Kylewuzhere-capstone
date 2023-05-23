@@ -15,7 +15,7 @@ export default async function RootLayout({ children }) {
     <>
       {/* h-screen allows the background color: grey-dark to fully fill the background*/}
       <Sidebar />
-      <div className="bg-blue-light-md flex justify-center items-center h-screen ml-40">
+      <div className="mt-12 bg-blue-light flex justify-center items-center h-screen ml-40">
         {children}
       </div>
     </>
