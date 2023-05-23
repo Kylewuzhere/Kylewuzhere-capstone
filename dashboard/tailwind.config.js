@@ -19,6 +19,7 @@ module.exports = {
         "grey-lighter": "#bebebe",
         'grey-md' : '#a5a5a5',
         'blue-light': '#e1f3fe',
+        'blue-md': '#d3edfe',
         'blue': '#c8e8fc',
       },
       fontFamily: {
