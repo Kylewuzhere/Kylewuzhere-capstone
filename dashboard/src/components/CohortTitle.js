@@ -4,10 +4,10 @@ const CohortTitle = async () => {
       <h1 className="ml-4">COHORTS</h1>
       <div className="text-sm flex space-x-4 mr-4">
         <button className="rounded border border-black bg-blue-light text-black px-10 py-2">
-          Sort
+          Latest
         </button>
         <button className="rounded border border-black bg-blue-light text-black px-10 py-2">
-          Filter
+          Active
         </button>
       </div>
     </div>

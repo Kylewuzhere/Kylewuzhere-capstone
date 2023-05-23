@@ -5,7 +5,7 @@ export default function Learners() {
       <div className="w-full  mb-10 border-b-2 border-black ">
         <LearnersTitle />
       </div>
-      <h2>Learners page</h2>
+      {/* <h2>Learners page</h2> */}
     </div>
   );
 }
