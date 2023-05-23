@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import Sidebar from "@/components/sidebar";
 
 import { getServerSession } from "next-auth/next";
@@ -14,7 +13,6 @@ export default async function RootLayout({ children }) {
 
   return (
     <>
-      <Header />
       {/* h-screen allows the background color: grey-dark to fully fill the background*/}
       <Sidebar />
       <div className="bg-blue-light-md flex justify-center items-center h-screen ml-40">
