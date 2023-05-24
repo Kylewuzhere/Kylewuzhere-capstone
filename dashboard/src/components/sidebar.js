@@ -10,8 +10,8 @@ const Sidebar = () => {
       title: "Cohorts",
     },
     {
-      href: "/dashboard/students",
-      title: "Students",
+      href: "/dashboard/learners",
+      title: "Learners",
     },
   ];
 

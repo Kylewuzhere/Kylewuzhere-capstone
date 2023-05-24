@@ -1,3 +1,4 @@
+import CohortTitle from "@/components/CohortTitle";
 import Link from "next/link";
 
 export default async function Cohorts() {
@@ -13,7 +14,10 @@ export default async function Cohorts() {
   const cohorts = await GetCohorts();
 
   return (
-    <div className="p-5 w-full h-full bg-grey-light">
+    <div className=" w-full h-full bg-grey-light">
+      <div className="w-full  mb-10 border-b-2 border-black ">
+        <CohortTitle />
+      </div>
       <div className="w-1/2 mx-auto h-[calc(100%-5%)] grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-scroll">
         {cohorts.map((cohort) => (
           <Link
