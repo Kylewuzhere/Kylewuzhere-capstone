@@ -1,5 +1,6 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
+
 // import SearchBar from "./searchBar";
 
 const Table = async () => {
