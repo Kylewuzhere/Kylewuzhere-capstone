@@ -1,10 +1,11 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import React from "react";
 import Link from "next/link";
 
 const Sidebar = () => {
-  // Credits for the sidebar:
-  // https://daily-dev-tips.com/posts/creating-a-sidebar-layout-in-nextjs-with-tailwind/
-  const items = [
+  const links = [
     {
       href: "/dashboard/cohorts",
       title: "Cohorts",
@@ -15,18 +16,25 @@ const Sidebar = () => {
     },
   ];
 
+  const pathname = usePathname();
+
   return (
     <aside className="fixed left-0 top-12 pt-24 h-[calc(100%-3rem)] w-40 bg-black col-span-2 px-2">
       <ul className="flex flex-col gap-4 text-center">
-        {items.map(({ href, title }) => (
-          <Link
-            // className="mx-auto text-center p-6 text-white text-xs bg-grey-button rounded hover:bg-slate-100 hover:text-black"
-            className="mx-auto text-center p-6 text-black text-xs bg-grey-button rounded hover:bg-orange hover:text-black"
-            href={href}
-          >
-            {title.toUpperCase()}
-          </Link>
-        ))}
+        {links.map(({ href, title }) => {
+          const isActive = pathname.startsWith(href);
+
+          return (
+            <Link
+              className={`${
+                isActive ? "border-white w-full font-bold" : "w-11/12"
+              } text-sm bg-grey-button mx-auto text-center p-6 text-black rounded border-transparent hover:border-white border-[1px] hover:w-full transition-all duration-100 ease-in-out`}
+              href={href}
+            >
+              {title.toUpperCase()}
+            </Link>
+          );
+        })}
       </ul>
     </aside>
   );
