@@ -28,11 +28,7 @@ const LearnerTable = () => {
 
   const getSortIcon = (column) => {
     if (sort.column === column) {
-      return sort.order === "asc" ? (
-        <span>&#9650;</span> // Upward arrow icon
-      ) : (
-        <span>&#9660;</span> // Downward arrow icon
-      );
+      return sort.order === "asc" ? <span>&#9650;</span> : <span>&#9660;</span>;
     }
     return null;
   };
@@ -142,10 +138,12 @@ const LearnerTable = () => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
                     <td
-                      className="whitespace-nowrap px-6 py-4 cursor-pointer"
+                      className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded"
                       // onClick={() => alert("button clicked")}
                     >
-                      →
+                      <div className="w-6 h-6 flex items-center justify-center">
+                        <span style={{ fontSize: "14px" }}>&#9658;</span>
+                      </div>
                     </td>
                   </tr>
                 ))}

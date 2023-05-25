@@ -6,8 +6,8 @@ export default function Learners() {
     <div className="w-full h-full bg-blue-light">
       <div className="w-full  mb-10 border-b-2 border-black ">
         <LearnersTitle />
-        <Table />
       </div>
+      <Table />
     </div>
   );
 }
