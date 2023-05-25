@@ -3,15 +3,27 @@ import React, { useState } from "react";
 
 // import SearchBar from "./searchBar";
 
-const Table = async () => {
-  async function GetStudents() {
-    // Call the /cohort route with a GET request
-    const query = await fetch("http://localhost:3000/api/learners");
-    const response = await query.json();
+import React, { useState, useEffect } from "react";
 
-    // Returns an array of learners info from joined tables
-    return response.rows;
-  }
+const Table = () => {
+  const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/learners");
+        const data = await response.json();
+        setStudents(data.rows);
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const students = await GetStudents();
 
