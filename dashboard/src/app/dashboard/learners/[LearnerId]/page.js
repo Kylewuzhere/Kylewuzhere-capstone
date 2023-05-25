@@ -1,16 +1,16 @@
 "use client";
 
 import LearnersTitle from "@/components/LearnersTitle";
-import { useParams } from "next/navigation";
+import IndividualLearner from "@/components/individualLearner";
+import getParams from "@/app/utils/getParams";
 
 export default function Learners() {
-  const params = useParams();
-  const uid = params.LearnerId;
+  const id = getParams();
   return (
     <div className="w-full h-full bg-blue-light">
       <div className="w-full  mb-10 border-b-2 border-black ">
         <LearnersTitle />
-        <p>Individual Learner #{uid}</p>
+        <IndividualLearner id={id} />
       </div>
     </div>
   );
