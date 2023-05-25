@@ -17,10 +17,24 @@ const LearnerTable = () => {
 
   const handleSort = (column) => {
     if (sort.column === column) {
-      setSort({ column, order: sort.order === "asc" ? "desc" : "asc" });
+      setSort((prevSort) => ({
+        column,
+        order: prevSort.order === "asc" ? "desc" : "asc",
+      }));
     } else {
       setSort({ column, order: "asc" });
     }
+  };
+
+  const getSortIcon = (column) => {
+    if (sort.column === column) {
+      return sort.order === "asc" ? (
+        <span>&#9650;</span> // Upward arrow icon
+      ) : (
+        <span>&#9660;</span> // Downward arrow icon
+      );
+    }
+    return null;
   };
 
   const sortedLearners = [...learners].sort((a, b) => {
@@ -63,28 +77,28 @@ const LearnerTable = () => {
                     className="px-6 py-4 cursor-pointer"
                     onClick={() => handleSort("name")}
                   >
-                    Name
+                    Name {getSortIcon("name")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-4 cursor-pointer"
                     onClick={() => handleSort("id")}
                   >
-                    Id
+                    Id {getSortIcon("id")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-4 cursor-pointer"
                     onClick={() => handleSort("cohort")}
                   >
-                    Cohort
+                    Cohort {getSortIcon("cohort")}
                   </th>
                   <th
                     scope="col"
                     className="px-6 py-4 cursor-pointer"
                     onClick={() => handleSort("startDate")}
                   >
-                    Start Date
+                    Start Date {getSortIcon("startDate")}
                   </th>
                   <th scope="col" className="px-6 py-4">
                     End Date
@@ -94,7 +108,7 @@ const LearnerTable = () => {
                     className="px-6 py-4 cursor-pointer"
                     onClick={() => handleSort("iQualify")}
                   >
-                    iQualify (Last log in)
+                    iQualify (Last log in) {getSortIcon("iQualify")}
                   </th>
                   <th scope="col" className="px-6 py-4">
                     Slack (Last active)
