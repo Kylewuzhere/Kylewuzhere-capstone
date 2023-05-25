@@ -26,6 +26,7 @@ const LearnerTable = () => {
         setStartDateSortColumn(column);
         setStartDateSortOrder("asc");
       }
+      setSortColumn(""); // Reset sortColumn when sorting by startDate
     } else {
       if (sortColumn === column) {
         setSortOrder(sortOrder === "asc" ? "desc" : "asc");
@@ -33,6 +34,7 @@ const LearnerTable = () => {
         setSortColumn(column);
         setSortOrder("asc");
       }
+      setStartDateSortColumn(""); // Reset startDateSortColumn when sorting by other columns
     }
   };
 
@@ -62,7 +64,6 @@ const LearnerTable = () => {
         return dateB - dateA;
       }
     }
-    // Add similar comparisons for other columns
 
     return 0;
   });
@@ -146,7 +147,7 @@ const LearnerTable = () => {
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
                     <td
                       className="whitespace-nowrap px-6 py-4"
-                      onClick={() => alert("button clicked")}
+                      // onClick={() => alert("button clicked")}
                     >
                       →
                     </td>
