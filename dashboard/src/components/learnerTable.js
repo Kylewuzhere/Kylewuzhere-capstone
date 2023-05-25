@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import Link from "next/link";
 // import SearchBar from "./searchBar";
 
 const Table = async () => {
@@ -72,11 +73,8 @@ const Table = async () => {
                       {student.last_updated}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
-                    <td
-                      className="whitespace-nowrap px-6 py-4"
-                      onClick={() => alert("button clicked")}
-                    >
-                      →
+                    <td className="whitespace-nowrap px-6 py-4">
+                      <Link href={`/dashboard/learners/${student.id}`}>→</Link>
                     </td>
                   </tr>
                 ))}
