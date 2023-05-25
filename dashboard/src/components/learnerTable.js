@@ -141,7 +141,12 @@ const LearnerTable = () => {
                       {learner.last_updated}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
-                    <td className="whitespace-nowrap px-6 py-4">→</td>
+                    <td
+                      className="whitespace-nowrap px-6 py-4 cursor-pointer"
+                      // onClick={() => alert("button clicked")}
+                    >
+                      →
+                    </td>
                   </tr>
                 ))}
               </tbody>
