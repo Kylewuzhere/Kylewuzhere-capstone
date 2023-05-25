@@ -1,30 +1,21 @@
 "use client";
-import React, { useState } from "react";
-
-// import SearchBar from "./searchBar";
 
 import React, { useState, useEffect } from "react";
 
-const Table = () => {
+const LearnerTable = () => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [sortColumn, setSortColumn] = useState("");
-  const [learners, setlearners] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [startDateSortOrder, setStartDateSortOrder] = useState("asc");
+  const [startDateSortColumn, setStartDateSortColumn] = useState("");
+  const [learners, setLearners] = useState([]);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch("http://localhost:3000/api/learners");
-        const data = await response.json();
-        setlearners(data.rows);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    async function fetchLearners() {
+      const response = await fetch("http://localhost:3000/api/learners");
+      const data = await response.json();
+      setLearners(data.rows);
+    }
+    fetchLearners();
   }, []);
 
   const handleSort = (column) => {
@@ -71,82 +62,98 @@ const Table = () => {
         return dateB - dateA;
       }
     }
+    // Add similar comparisons for other columns
 
     return 0;
   });
 
   return (
     <div className="flex flex-col overflow-x-auto">
-      {/* <SearchBar /> */}
       <div className="sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-x-auto">
-            {loading ? (
-              <div>Loading...</div> // Show loading state
-            ) : (
-              <table className="min-w-full text-left text-sm font-light">
-                <thead className="border-b font-medium dark:border-neutral-500">
-                  <tr>
-                    <th scope="col" className="px-6 py-4">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Id
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Cohort
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Start Date
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      End Date
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      iQualify(Last log in)
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      Slack(Last active)
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      More
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {learners.map((learner) => (
-                    <tr
-                      className="border-b dark:border-neutral-500"
-                      key={learner.id}
+            <table className="min-w-full text-left text-sm font-light">
+              <thead className="border-b font-medium dark:border-neutral-500">
+                <tr>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 cursor-pointer"
+                    onClick={() => handleSort("name")}
+                  >
+                    Name
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 cursor-pointer"
+                    onClick={() => handleSort("id")}
+                  >
+                    Id
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 cursor-pointer"
+                    onClick={() => handleSort("cohort")}
+                  >
+                    Cohort
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 cursor-pointer"
+                    onClick={() => handleSort("startDate")}
+                  >
+                    Start Date
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    End Date
+                  </th>
+                  <th
+                    scope="col"
+                    className="px-6 py-4 cursor-pointer"
+                    onClick={() => handleSort("iQualify")}
+                  >
+                    iQualify (Last log in)
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    Slack (Last active)
+                  </th>
+                  <th scope="col" className="px-6 py-4">
+                    More
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sortedLearners.map((learner) => (
+                  <tr
+                    className="border-b dark:border-neutral-500"
+                    key={learner.id}
+                  >
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {learner.first_name + " " + learner.last_name}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {learner.id}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {learner.name}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {learner.programme_start}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">N/A</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {learner.last_updated}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">N/A</td>
+                    <td
+                      className="whitespace-nowrap px-6 py-4"
+                      onClick={() => alert("button clicked")}
                     >
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.first_name + " " + learner.last_name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.id}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.programme_start}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">N/A</td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.last_updated}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">N/A</td>
-                      <td
-                        className="whitespace-nowrap px-6 py-4"
-                        onClick={() => alert("button clicked")}
-                      >
-                        →
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
+                      →
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
@@ -154,4 +161,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default LearnerTable;
