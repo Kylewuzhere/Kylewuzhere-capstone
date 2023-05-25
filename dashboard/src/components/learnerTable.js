@@ -3,10 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 const LearnerTable = () => {
-  const [sortOrder, setSortOrder] = useState("asc");
-  const [sortColumn, setSortColumn] = useState("");
-  const [startDateSortOrder, setStartDateSortOrder] = useState("asc");
-  const [startDateSortColumn, setStartDateSortColumn] = useState("");
+  const [sort, setSort] = useState({ column: "", order: "asc" });
   const [learners, setLearners] = useState([]);
 
   useEffect(() => {
@@ -19,50 +16,35 @@ const LearnerTable = () => {
   }, []);
 
   const handleSort = (column) => {
-    if (column === "startDate") {
-      if (startDateSortColumn === column) {
-        setStartDateSortOrder(startDateSortOrder === "asc" ? "desc" : "asc");
-      } else {
-        setStartDateSortColumn(column);
-        setStartDateSortOrder("asc");
-      }
-      setSortColumn(""); // Reset sortColumn when sorting by startDate
+    if (sort.column === column) {
+      setSort({ column, order: sort.order === "asc" ? "desc" : "asc" });
     } else {
-      if (sortColumn === column) {
-        setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-      } else {
-        setSortColumn(column);
-        setSortOrder("asc");
-      }
-      setStartDateSortColumn(""); // Reset startDateSortColumn when sorting by other columns
+      setSort({ column, order: "asc" });
     }
   };
 
-  const sortedLearners = [...learners];
-  sortedLearners.sort((a, b) => {
-    if (sortColumn === "name") {
-      return sortOrder === "asc"
+  const sortedLearners = [...learners].sort((a, b) => {
+    const { column, order } = sort;
+
+    if (column === "name") {
+      return order === "asc"
         ? a.first_name.localeCompare(b.first_name)
         : b.first_name.localeCompare(a.first_name);
-    } else if (sortColumn === "id") {
-      return sortOrder === "asc" ? a.id - b.id : b.id - a.id;
-    } else if (sortColumn === "cohort") {
-      return sortOrder === "asc"
+    } else if (column === "id") {
+      return order === "asc" ? a.id - b.id : b.id - a.id;
+    } else if (column === "cohort") {
+      return order === "asc"
         ? a.name.localeCompare(b.name)
         : b.name.localeCompare(a.name);
-    } else if (sortColumn === "iQualify") {
-      return sortOrder === "asc"
+    } else if (column === "iQualify") {
+      return order === "asc"
         ? a.last_updated.localeCompare(b.last_updated)
         : b.last_updated.localeCompare(a.last_updated);
-    } else if (startDateSortColumn === "startDate") {
+    } else if (column === "startDate") {
       const dateA = new Date(a.programme_start);
       const dateB = new Date(b.programme_start);
 
-      if (startDateSortOrder === "asc") {
-        return dateA - dateB;
-      } else {
-        return dateB - dateA;
-      }
+      return order === "asc" ? dateA - dateB : dateB - dateA;
     }
 
     return 0;
@@ -145,12 +127,7 @@ const LearnerTable = () => {
                       {learner.last_updated}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
-                    <td
-                      className="whitespace-nowrap px-6 py-4"
-                      // onClick={() => alert("button clicked")}
-                    >
-                      →
-                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">→</td>
                   </tr>
                 ))}
               </tbody>
