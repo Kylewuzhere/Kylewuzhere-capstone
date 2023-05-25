@@ -3,11 +3,9 @@ import Table from "@/components/learnerTable";
 
 export default function Learners() {
   return (
-    <div className="w-full h-full bg-blue-light">
-      <div className="w-full  mb-10 border-b-2 border-black ">
-        <LearnersTitle />
-        <Table />
-      </div>
+    <div className="w-full h-full border-b-2 border-black bg-blue-light">
+      <LearnersTitle />
+      <Table />
     </div>
   );
 }
