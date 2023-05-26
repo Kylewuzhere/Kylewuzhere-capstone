@@ -15,10 +15,10 @@ export default async function Cohorts() {
 
   return (
     <div className=" w-full h-full bg-grey-light">
-      <div className="w-full  mb-10 border-b-2 border-black ">
+      <div className="w-full mb-2 border-b-2 border-black ">
         <CohortTitle />
       </div>
-      <div className="w-1/2 mx-auto h-[calc(100%-5%)] grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-scroll">
+      <div className="w-1/2 mx-auto h-[calc(100%-18%)] grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-scroll">
         {cohorts.map((cohort) => (
           <Link
             key={cohort.id}
