@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+// import SearchBar from "./searchBar";
 
 const LearnerTable = () => {
   const [sort, setSort] = useState({ column: "name", order: "asc" });
@@ -139,7 +140,7 @@ const LearnerTable = () => {
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
                     <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
                       <div className="w-6 h-6 flex items-center justify-center">
-                        <Link href={`/${learner.id}`}>
+                        <Link href={`/dashboard/learners/${student.id}`}>
                           {/* This will need to be customised further when we are building the indiviual pages */}
                           <span style={{ fontSize: "14px" }}>&#9658;</span>
                         </Link>
