@@ -6,7 +6,7 @@ export default function Learners({ params }) {
       <LearnersTitle />
       <iframe
         className="w-full h-full"
-        src={`https://ap-southeast-2.quicksight.aws.amazon.com/sn/embed/share/accounts/236143717967/dashboards/68130911-39a3-44d6-9510-49afa451eccf?directory_alias=diquicksights#p.userid=${params.id}`}
+        src={`https://ap-southeast-2.quicksight.aws.amazon.com/sn/embed/share/accounts/236143717967/dashboards/d5d02744-a9e2-478e-a459-67c9ea03ab6f/sheets/d5d02744-a9e2-478e-a459-67c9ea03ab6f_46a79b94-630a-4388-ba64-26a4c1d46e6e/visuals/d5d02744-a9e2-478e-a459-67c9ea03ab6f_17b8fd5b-3b53-402a-91ea-e29036855036?directory_alias=diquicksights#p.userId=${params.id}`}
       ></iframe>
     </div>
   );
