@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 const LearnerTable = () => {
-  const [sort, setSort] = useState({ column: "", order: "asc" });
+  const [sort, setSort] = useState({ column: "name", order: "asc" });
   const [learners, setLearners] = useState([]);
 
   useEffect(() => {
