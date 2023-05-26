@@ -140,7 +140,7 @@ const LearnerTable = () => {
                     <td className="whitespace-nowrap px-6 py-4">N/A</td>
                     <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
                       <div className="w-6 h-6 flex items-center justify-center">
-                        <Link href={`/dashboard/learners/${student.id}`}>
+                        <Link href={`/dashboard/learners/${learner.id}`}>
                           {/* This will need to be customised further when we are building the indiviual pages */}
                           <span style={{ fontSize: "14px" }}>&#9658;</span>
                         </Link>
