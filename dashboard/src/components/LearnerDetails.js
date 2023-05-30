@@ -4,6 +4,7 @@ import Image from "next/image";
 
 const LearnerDetails = ({ learnerId }) => {
   const [learner, setLearner] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     async function fetchLearner() {
@@ -19,16 +20,20 @@ const LearnerDetails = ({ learnerId }) => {
     fetchLearner();
   }, [learnerId]);
 
-  const handleEmail = () => {
-    console.log("Email learner:", learner.email);
+  const sendEmail = () => {
+    console.log("Sending email to learner:", learner.email);
   };
 
-  const handleSlackMessage = () => {
-    console.log("Send Slack message to learner:", learner.first_name);
+  const sendSlackMessage = () => {
+    console.log("Sending Slack message to learner:", learner.first_name);
   };
 
   const handleMoreDetails = () => {
-    console.log("More details about the learner:", learner);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -53,13 +58,27 @@ const LearnerDetails = ({ learnerId }) => {
               More Details
               <span className="ml-2">&#9660;</span>
             </button>
+            {showModal && (
+              <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="bg-white bg-opacity-75 shadow-md rounded-md p-8">
+                  <h2 className="text-xl font-bold mb-4">Email</h2>
+                  <p className="mb-4">{learner.email}</p>
+                  <button
+                    onClick={handleCloseModal}
+                    className="bg-gray-300 hover:bg-gray-400 text-xs text-black px-4 py-2 rounded"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
           <div className="flex flex-col items-end">
             <div className="flex items-center space-x-2 mb-2">
               <span className="text-gray-500 italic text-sm">Email</span>
               <div>
                 <button
-                  onClick={handleEmail}
+                  onClick={sendEmail}
                   className="bg-transparent hover:bg-gray-300 rounded"
                 >
                   <Image
@@ -77,7 +96,7 @@ const LearnerDetails = ({ learnerId }) => {
               </span>
               <div>
                 <button
-                  onClick={handleSlackMessage}
+                  onClick={sendSlackMessage}
                   className="bg-white hover:bg-gray-300 text-gray-800 rounded"
                   disabled
                 >
