@@ -28,4 +28,6 @@ const LearnerDetails = ({ learnerId }) => {
     // Logic to handle Slack message functionality to be further developed
     console.log("Send Slack message to learner:", learner.first_name);
   };
+
+  return <div style={{ width: "500px" }}></div>;
 };
