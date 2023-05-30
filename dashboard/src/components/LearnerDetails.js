@@ -21,7 +21,10 @@ const LearnerDetails = ({ learnerId }) => {
   }, [learnerId]);
 
   const sendEmail = () => {
-    console.log("Sending email to learner:", learner.email);
+    if (learner && learner.email) {
+      const emailUrl = `mailto:${learner.email}`;
+      window.location.href = emailUrl;
+    }
   };
 
   const sendSlackMessage = () => {
