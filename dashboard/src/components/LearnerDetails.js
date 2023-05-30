@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const LearnerDetails = ({ learnerId }) => {
   const [learner, setLearner] = useState(null);
@@ -43,16 +44,26 @@ const LearnerDetails = ({ learnerId }) => {
             <div className="flex space-x-2">
               <button
                 onClick={handleEmail}
-                className="bg-white hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
+                className=" hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
               >
-                Email
+                <Image
+                  src="/images/email.png"
+                  alt="Email"
+                  width={70}
+                  height={70}
+                />
               </button>
               <button
                 onClick={handleSlackMessage}
                 className="bg-white hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
                 disabled
               >
-                Slack
+                <Image
+                  src="/images/slack.png"
+                  alt="Slack"
+                  width={45}
+                  height={45}
+                />
               </button>
             </div>
           </div>
