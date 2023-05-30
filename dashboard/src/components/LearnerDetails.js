@@ -30,21 +30,33 @@ const LearnerDetails = ({ learnerId }) => {
   };
 
   return (
-    <div style={{ width: "500px" }}>
+    <div
+      style={{ width: "500px" }}
+      className="bg-gray-200 rounded-md p-8 ml-4 mt-4"
+    >
       {learner && (
         <div>
-          <div>
-            <h2>
+          <div className="flex justify-between items-center mb-4">
+            <h2 className="text-xl font-bold">
               {learner.first_name} {learner.last_name}
             </h2>
-            <div>
-              <button onClick={handleEmail}>Email</button>
-              <button onClick={handleSlackMessage} disabled>
+            <div className="flex space-x-2">
+              <button
+                onClick={handleEmail}
+                className="bg-white hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
+              >
+                Email
+              </button>
+              <button
+                onClick={handleSlackMessage}
+                className="bg-white hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
+                disabled
+              >
                 Slack
               </button>
             </div>
           </div>
-          <p>Cohort: {learner.name}</p>
+          <p className="mb-4">Cohort: {learner.name}</p>
         </div>
       )}
     </div>
