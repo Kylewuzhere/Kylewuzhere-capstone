@@ -44,6 +44,7 @@ const LearnerDetails = ({ learnerId }) => {
               </button>
             </div>
           </div>
+          <p>Cohort: {learner.name}</p>
         </div>
       )}
     </div>
