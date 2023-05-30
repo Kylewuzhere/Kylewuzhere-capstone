@@ -45,36 +45,47 @@ const LearnerDetails = ({ learnerId }) => {
       className="bg-gray-200 rounded-md p-8 ml-4 mt-4 flex flex-col"
     >
       {learner && (
-        <div className="flex justify-between">
-          <div>
-            <h2 className="text-xl font-bold mb-2">
-              {learner.first_name} {learner.last_name}
-            </h2>
-            <p className="mb-4">
-              <span className="text-gray-500">Cohort: </span>
-              {learner.name}
-            </p>
-            <button
-              onClick={handleMoreDetails}
-              className="bg-gray-300 hover:bg-gray-400 text-xs text-black px-4 py-2 rounded inline-flex items-center mt-4"
-            >
-              More Details
-              <span className="ml-2">&#9660;</span>
-            </button>
-            {showModal && (
-              <div className="fixed inset-0 flex items-center justify-center z-50">
-                <div className="bg-white bg-opacity-75 shadow-md rounded-md p-8">
-                  <h2 className="text-xl font-bold mb-4">Email</h2>
-                  <p className="mb-4">{learner.email}</p>
-                  <button
-                    onClick={handleCloseModal}
-                    className="bg-gray-300 hover:bg-gray-400 text-xs text-black px-4 py-2 rounded"
-                  >
-                    Close
-                  </button>
+        <div className="flex justify-between items-start">
+          <div className="flex items-start">
+            <div className="mr-4">
+              <Image
+                src="/images/avatar.png"
+                alt="Avatar"
+                width={80}
+                height={80}
+                className="rounded-full"
+              />
+            </div>
+            <div>
+              <h2 className="text-xl font-bold mb-2">
+                {learner.first_name} {learner.last_name}
+              </h2>
+              <p className="mb-4">
+                <span className="text-gray-500">Cohort: </span>
+                {learner.name}
+              </p>
+              <button
+                onClick={handleMoreDetails}
+                className="bg-gray-300 hover:bg-gray-400 text-xs text-black px-4 py-2 rounded inline-flex items-center mt-4"
+              >
+                More Details
+                <span className="ml-2">&#9660;</span>
+              </button>
+              {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50">
+                  <div className="bg-white bg-opacity-75 shadow-md rounded-md p-8">
+                    <h2 className="text-xl font-bold mb-4">Email</h2>
+                    <p className="mb-4">{learner.email}</p>
+                    <button
+                      onClick={handleCloseModal}
+                      className="bg-gray-300 hover:bg-gray-400 text-xs text-black px-4 py-2 rounded"
+                    >
+                      Close
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="flex flex-col items-end">
             <div className="flex items-center space-x-2 mb-2">
@@ -87,8 +98,8 @@ const LearnerDetails = ({ learnerId }) => {
                   <Image
                     src="/images/email.png"
                     alt="Email"
-                    width={50}
-                    height={50}
+                    width={55}
+                    height={55}
                   />
                 </button>
               </div>
