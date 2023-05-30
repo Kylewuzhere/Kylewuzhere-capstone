@@ -41,7 +41,7 @@ const LearnerDetails = ({ learnerId }) => {
 
   return (
     <div
-      style={{ width: "500px" }}
+      style={{ width: "550px" }}
       className="bg-gray-200 rounded-md p-8 ml-4 mt-4 flex flex-col"
     >
       {learner && (
