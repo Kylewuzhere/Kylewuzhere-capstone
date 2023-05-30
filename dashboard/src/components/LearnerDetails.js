@@ -1,6 +1,6 @@
 "use client";
-
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const LearnerDetails = ({ learnerId }) => {
   const [learner, setLearner] = useState(null);
@@ -20,12 +20,12 @@ const LearnerDetails = ({ learnerId }) => {
   }, [learnerId]);
 
   const handleEmail = () => {
-    // Logic to handle email functionality to be further developed
+    // Logic to handle email functionality
     console.log("Email learner:", learner.email);
   };
 
   const handleSlackMessage = () => {
-    // Logic to handle Slack message functionality to be further developed
+    // Logic to handle Slack message functionality
     console.log("Send Slack message to learner:", learner.first_name);
   };
 
@@ -62,3 +62,5 @@ const LearnerDetails = ({ learnerId }) => {
     </div>
   );
 };
+
+export default LearnerDetails;
