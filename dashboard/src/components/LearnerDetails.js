@@ -29,5 +29,9 @@ const LearnerDetails = ({ learnerId }) => {
     console.log("Send Slack message to learner:", learner.first_name);
   };
 
-  return <div style={{ width: "500px" }}></div>;
+  return (
+    <div style={{ width: "500px" }}>
+      {learner && <div>{/* other elements will go here */}</div>}
+    </div>
+  );
 };
