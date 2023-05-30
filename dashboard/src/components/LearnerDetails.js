@@ -37,6 +37,12 @@ const LearnerDetails = ({ learnerId }) => {
             <h2>
               {learner.first_name} {learner.last_name}
             </h2>
+            <div>
+              <button onClick={handleEmail}>Email</button>
+              <button onClick={handleSlackMessage} disabled>
+                Slack
+              </button>
+            </div>
           </div>
         </div>
       )}
