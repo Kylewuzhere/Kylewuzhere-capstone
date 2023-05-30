@@ -1,10 +1,11 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 
 const LearnerDetails = ({ learnerId }) => {
   const [learner, setLearner] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const modalRef = useRef(null);
 
   useEffect(() => {
     async function fetchLearner() {
@@ -39,10 +40,24 @@ const LearnerDetails = ({ learnerId }) => {
     setShowModal(false);
   };
 
+  const handleOutsideClick = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setShowModal(false);
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, []);
+
   return (
     <div
       style={{ width: "550px" }}
-      className="bg-gray-200 rounded-md p-8 ml-4 mt-4 flex flex-col"
+      className="bg-grey-md shadow-md rounded-md p-8 ml-4 mt-4 flex flex-col"
     >
       {learner && (
         <div className="flex justify-between items-start">
@@ -61,7 +76,7 @@ const LearnerDetails = ({ learnerId }) => {
                 {learner.first_name} {learner.last_name}
               </h2>
               <p className="mb-4">
-                <span className="text-gray-500">Cohort: </span>
+                <span className="text-gray-700">Cohort: </span>
                 {learner.name}
               </p>
               <button
@@ -73,7 +88,10 @@ const LearnerDetails = ({ learnerId }) => {
               </button>
               {showModal && (
                 <div className="fixed inset-0 flex items-center justify-center z-50">
-                  <div className="bg-white bg-opacity-75 shadow-md rounded-md p-8">
+                  <div
+                    ref={modalRef}
+                    className="bg-white bg-opacity-75 shadow-md rounded-md p-8"
+                  >
                     <h2 className="text-xl font-bold mb-4">Email</h2>
                     <p className="mb-4">{learner.email}</p>
                     <button
