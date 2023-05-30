@@ -2,4 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 
-const LearnerDetails = ({ learnerId }) => {};
+const LearnerDetails = ({ learnerId }) => {
+  const [learner, setLearner] = useState(null);
+};
