@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
 
 const LearnerDetails = ({ learnerId }) => {
@@ -37,37 +36,49 @@ const LearnerDetails = ({ learnerId }) => {
     >
       {learner && (
         <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">
-              {learner.first_name} {learner.last_name}
-            </h2>
-            <div className="flex space-x-2">
-              <button
-                onClick={handleEmail}
-                className=" hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
-              >
-                <Image
-                  src="/images/email.png"
-                  alt="Email"
-                  width={70}
-                  height={70}
-                />
-              </button>
-              <button
-                onClick={handleSlackMessage}
-                className="bg-white hover:bg-gray-300 text-gray-800 px-4 py-2 rounded"
-                disabled
-              >
-                <Image
-                  src="/images/slack.png"
-                  alt="Slack"
-                  width={45}
-                  height={45}
-                />
-              </button>
+          <div className="flex justify-between items-start mb-4">
+            <div>
+              <h2 className="text-xl font-bold mb-2">
+                {learner.first_name} {learner.last_name}
+              </h2>
+              <p className="mb-4">Cohort: {learner.name}</p>
+            </div>
+            <div className="flex flex-col items-end">
+              <div className="flex items-center space-x-2 mb-2">
+                <span className="text-gray-500 italic">Email</span>
+                <div>
+                  <button
+                    onClick={handleEmail}
+                    className="bg-transparent hover:bg-gray-300 rounded"
+                  >
+                    <Image
+                      src="/images/email.png"
+                      alt="Email"
+                      width={50}
+                      height={50}
+                    />
+                  </button>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2 text-sm">
+                <span className="text-gray-500 italic">Message on Slack</span>
+                <div>
+                  <button
+                    onClick={handleSlackMessage}
+                    className="bg-white hover:bg-gray-300 text-gray-800 rounded"
+                    disabled
+                  >
+                    <Image
+                      src="/images/slack.png"
+                      alt="Slack"
+                      width={50}
+                      height={50}
+                    />
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-          <p className="mb-4">Cohort: {learner.name}</p>
         </div>
       )}
     </div>
