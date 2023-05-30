@@ -18,4 +18,14 @@ const LearnerDetails = ({ learnerId }) => {
 
     fetchLearner();
   }, [learnerId]);
+
+  const handleEmail = () => {
+    // Logic to handle email functionality to be further developed
+    console.log("Email learner:", learner.email);
+  };
+
+  const handleSlackMessage = () => {
+    // Logic to handle Slack message functionality to be further developed
+    console.log("Send Slack message to learner:", learner.first_name);
+  };
 };
