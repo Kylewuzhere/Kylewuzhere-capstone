@@ -31,7 +31,15 @@ const LearnerDetails = ({ learnerId }) => {
 
   return (
     <div style={{ width: "500px" }}>
-      {learner && <div>{/* other elements will go here */}</div>}
+      {learner && (
+        <div>
+          <div>
+            <h2>
+              {learner.first_name} {learner.last_name}
+            </h2>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
