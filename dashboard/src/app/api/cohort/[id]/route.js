@@ -10,11 +10,12 @@ export async function GET(request, { params }) {
   }
 
   const query = `
-    SELECT *
-    FROM cohort
-    JOIN users ON cohort.id = users.cohort_id
-    WHERE cohort.id = $1;
-  `;
+  SELECT users.id, users.first_name, users.last_name, activity_log.source, activity_log.event_time, activity_log.event_type
+  FROM cohort
+  JOIN users ON cohort.id = users.cohort_id
+  LEFT JOIN activity_log ON users.id = activity_log.user_id
+  WHERE cohort.id = $1;
+`;
 
   try {
     const { rows } = await pool.query(query, [id]);
