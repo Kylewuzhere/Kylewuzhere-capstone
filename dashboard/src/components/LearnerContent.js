@@ -42,10 +42,7 @@ const LearnerContent = () => {
       {!loading && (
         <>
           <SearchBar />
-          {learners.length === 0 && (
-            <p className="mx-5 my-5">No Learners Found</p>
-          )}
-          {learners.length > 0 && <Table content={learners} />}
+          <Table content={learners} />
         </>
       )}
     </>
