@@ -3,4 +3,8 @@ import React, { useEffect, useState } from "react";
 
 const CohortTable = ({ cohortData }) => {
   const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    
+  }, [cohortData]);
 };
