@@ -42,3 +42,5 @@ const CohortTable = ({ cohortData }) => {
     </table>
   );
 };
+
+export default CohortTable;
