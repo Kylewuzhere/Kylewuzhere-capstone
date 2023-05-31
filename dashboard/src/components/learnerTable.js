@@ -1,20 +1,9 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
-// import SearchBar from "./searchBar";
 
-const LearnerTable = () => {
+const LearnerTable = ({ content }) => {
   const [sort, setSort] = useState({ column: "name", order: "asc" });
-  const [learners, setLearners] = useState([]);
-
-  useEffect(() => {
-    async function fetchLearners() {
-      const response = await fetch("http://localhost:3000/api/learners");
-      const data = await response.json();
-      setLearners(data.rows);
-    }
-    fetchLearners();
-  }, []);
 
   const handleSort = (column) => {
     if (sort.column === column) {
@@ -34,7 +23,7 @@ const LearnerTable = () => {
     return null;
   };
 
-  const sortedLearners = [...learners].sort((a, b) => {
+  const sortedLearners = [...content].sort((a, b) => {
     const { column, order } = sort;
 
     if (column === "name") {
