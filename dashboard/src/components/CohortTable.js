@@ -20,8 +20,8 @@ const CohortTable = ({ cohortData }) => {
       <div className="-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
           <div className="overflow-x-auto">
-            <table>
-              <thead>
+            <table className="min-w-full text-left text-sm font-light">
+              <thead className="border-b font-medium dark:border-neutral-500">
                 <tr>
                   <th className="px-6 py-4">Name</th>
                   <th className="px-6 py-4">ID</th>
