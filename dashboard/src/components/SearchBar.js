@@ -8,6 +8,7 @@ export default function SearchBar() {
   const [input, setInput] = useState("");
 
   // replaces all non-alphabetic characters with an empty string, unless it's a space
+  // ref: https://bobbyhadz.com/blog/react-input-only-letters
   const handleChange = (event) => {
     const result = event.target.value.replace(/[^a-z\p{L} ]/giu, "");
 
