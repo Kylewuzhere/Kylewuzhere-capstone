@@ -5,7 +5,13 @@ const CohortTable = ({ cohortData }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    async function fetchData() {}
+    async function fetchData() {
+      const response = await fetch(
+        `http://localhost:3000/api/cohort/${cohortData}`
+      );
+      const data = await response.json();
+      setUsers(data.rows);
+    }
     fetchData();
   }, [cohortData]);
 };
