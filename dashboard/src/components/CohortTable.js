@@ -25,10 +25,14 @@ const CohortTable = ({ cohortData }) => {
                 <tr>
                   <th className="px-6 py-4 bg-gray-300">Name</th>
                   <th className="px-6 py-4 bg-gray-300">ID</th>
-                  <th className="px-6 py-4 bg-gray-300">Zoom</th>
-                  <th className="px-6 py-4 bg-gray-300">iQualify</th>
-                  <th className="px-6 py-4 bg-gray-300">Slack</th>
-                  <th className="px-6 py-4 bg-gray-300">Github</th>
+                  <th className="px-6 py-4 bg-gray-300">Zoom (Last log in)</th>
+                  <th className="px-6 py-4 bg-gray-300">
+                    iQualify (Last log in)
+                  </th>
+                  <th className="px-6 py-4 bg-gray-300">Slack (Last log in)</th>
+                  <th className="px-6 py-4 bg-gray-300">
+                    Github (Last commit)
+                  </th>
                 </tr>
               </thead>
               <tbody>
