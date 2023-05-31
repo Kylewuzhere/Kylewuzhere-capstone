@@ -15,5 +15,18 @@ const CohortTable = ({ cohortData }) => {
     fetchData();
   }, [cohortData]);
 
-  return <table></table>;
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>ID</th>
+          <th>Zoom</th>
+          <th>iQualify</th>
+          <th>Slack</th>
+          <th>Github</th>
+        </tr>
+      </thead>
+    </table>
+  );
 };
