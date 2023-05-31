@@ -11,7 +11,20 @@ export async function GET(request) {
   const query = searchParams.get("search");
 
   if (query !== null) {
-    const entries = query.replace(/[^a-z\p{L} ]/giu, "").split(" ");
+    // slicer takes a string, returns an array of strings ready for SQL query
+    const slicer = (input) => {
+      // removes any non-alphabetic characters from the input, except spaces and unicode characters
+      const cleanned = input.replace(/[^a-z\p{L} ]/giu, "");
+      let entries = cleanned.split(" ");
+      // removes empty strings from the array
+      entries.filter(function (word) {
+        return word !== "";
+      });
+      // Adds % to the end of each entry
+      entries = entries.map((entry) => entry + "%");
+      return entries;
+    };
+    const entries = slicer(query);
     // retrieves all learners that match the search query (NAME)
     const { rows } = await pool.query(
       "SELECT first_name,last_name,users.id,cohort.name,programme_start,last_updated FROM users FULL OUTER JOIN iqualify_data ON users.id=iqualify_data.user_id FULL OUTER JOIN cohort ON users.cohort_id=cohort.id WHERE (first_name LIKE INITCAP($1) OR last_name LIKE INITCAP($1)) OR (last_name LIKE INITCAP($2) OR first_name LIKE INITCAP($2))",
