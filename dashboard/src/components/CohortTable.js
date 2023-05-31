@@ -5,6 +5,7 @@ const CohortTable = ({ cohortData }) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    
+    async function fetchData() {}
+    fetchData();
   }, [cohortData]);
 };
