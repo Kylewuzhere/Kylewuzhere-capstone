@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   const id = params.id;
-  const { searchParams } = request.nextUrl;
+
   try {
     const query = `
       SELECT users.*, cohort.name

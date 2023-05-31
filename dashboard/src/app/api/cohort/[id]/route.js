@@ -3,8 +3,6 @@ import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
   const id = params.id;
-  const { searchParams } = request.nextUrl;
-
   if (!id) {
     return NextResponse.error(400, "Missing id");
   }
