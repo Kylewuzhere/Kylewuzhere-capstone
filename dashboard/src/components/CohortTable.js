@@ -23,12 +23,12 @@ const CohortTable = ({ cohortData }) => {
             <table>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>ID</th>
-                  <th>Zoom</th>
-                  <th>iQualify</th>
-                  <th>Slack</th>
-                  <th>Github</th>
+                  <th className="px-6 py-4">Name</th>
+                  <th className="px-6 py-4">ID</th>
+                  <th className="px-6 py-4">Zoom</th>
+                  <th className="px-6 py-4">iQualify</th>
+                  <th className="px-6 py-4">Slack</th>
+                  <th className="px-6 py-4">Github</th>
                 </tr>
               </thead>
               <tbody>
