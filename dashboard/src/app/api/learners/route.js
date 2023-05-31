@@ -10,7 +10,7 @@ export async function GET(request) {
   // query is the search query from the url with the name "search"
   const query = searchParams.get("search");
 
-  if (query !== null) {
+  if (query !== null && query !== "" && query !== " ") {
     // slicer takes a string, returns an array of strings ready for SQL query
     const slicer = (input) => {
       // removes any non-alphabetic characters from the input, except spaces and unicode characters
