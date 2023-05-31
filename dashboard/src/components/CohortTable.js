@@ -14,4 +14,6 @@ const CohortTable = ({ cohortData }) => {
     }
     fetchData();
   }, [cohortData]);
+
+  return <table></table>;
 };
