@@ -33,13 +33,26 @@ const CohortTable = ({ cohortData }) => {
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <tr key={user.id}>
-                    <td>{`${user.first_name} ${user.last_name}`}</td>
-                    <td>{user.id}</td>
-                    <td>{user.zoom_logged_in}</td>
-                    <td>{user.iqualify_logged_in}</td>
-                    <td>{user.slack_logged_in}</td>
-                    <td>{user.github_last_commit}</td>
+                  <tr
+                    className="border-b dark:border-neutral-500"
+                    key={user.id}
+                  >
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {`${user.first_name} ${user.last_name}`}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">{user.id}</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {user.zoom_logged_in}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {user.iqualify_logged_in}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {user.slack_logged_in}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {user.github_last_commit}
+                    </td>
                   </tr>
                 ))}
               </tbody>
