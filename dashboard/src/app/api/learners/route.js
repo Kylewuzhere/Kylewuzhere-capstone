@@ -11,7 +11,7 @@ export async function GET(request) {
   const query = searchParams.get("search");
 
   if (query !== null) {
-    const entries = query.replace(/[^a-z ]/gi, "").split(" ");
+    const entries = query.replace(/[^a-z\p{L} ]/giu, "").split(" ");
     // retrieves all learners that match the search query (NAME)
     const { rows } = await pool.query(
       "SELECT first_name,last_name,users.id,cohort.name,programme_start,last_updated FROM users FULL OUTER JOIN iqualify_data ON users.id=iqualify_data.user_id FULL OUTER JOIN cohort ON users.cohort_id=cohort.id WHERE (first_name LIKE INITCAP($1) OR last_name LIKE INITCAP($1)) OR (last_name LIKE INITCAP($2) OR first_name LIKE INITCAP($2))",

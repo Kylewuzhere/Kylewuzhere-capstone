@@ -9,7 +9,7 @@ export default function SearchBar() {
 
   // replaces all non-alphabetic characters with an empty string, unless it's a space
   const handleChange = (event) => {
-    const result = event.target.value.replace(/[^a-z ]/gi, "");
+    const result = event.target.value.replace(/[^a-z\p{L} ]/giu, "");
 
     setInput(result);
   };
