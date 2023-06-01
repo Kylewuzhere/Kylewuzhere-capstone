@@ -7,7 +7,8 @@ const CohortTable = ({ cohortData }) => {
   useEffect(() => {
     async function fetchData() {
       const response = await fetch(
-        `http://localhost:3000/api/cohort/${cohortData}`
+        `http://localhost:3000/api/cohort/${cohortData}`,
+        { cache: 'no-store'}
       );
       const data = await response.json();
       setUsers(data.rows);

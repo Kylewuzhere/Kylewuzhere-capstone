@@ -4,7 +4,7 @@ import Link from "next/link";
 export default async function Cohorts() {
   async function GetCohorts() {
     // Call the /cohort route with a GET request
-    const query = await fetch("http://localhost:3000/api/cohort");
+    const query = await fetch("http://localhost:3000/api/cohort", { cache: 'no-store'});
     const response = await query.json();
 
     // Returns an array of cohort names and id's
