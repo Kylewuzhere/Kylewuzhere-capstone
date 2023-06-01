@@ -6,10 +6,10 @@ export async function GET(request, { params }) {
 
   try {
     const query = `
-      SELECT users.*, cohort.name
-      FROM users
-      FULL OUTER JOIN cohort ON users.cohort_id = cohort.id
-      WHERE users.id = $1
+      SELECT learners.*, cohorts.name
+      FROM learners
+      FULL OUTER JOIN cohorts ON learners.cohort_id = cohorts.id
+      WHERE learners.id = $1
     `;
     const { rows } = await pool.query(query, [id]);
     return NextResponse.json({ rows });
