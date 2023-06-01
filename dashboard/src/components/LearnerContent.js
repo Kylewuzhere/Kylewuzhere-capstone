@@ -25,7 +25,7 @@ const LearnerContent = () => {
     };
     // fetch data under the api endpoint of conditionalAPI()
     async function fetchLearners() {
-      const response = await fetch(conditionalAPI());
+      const response = await fetch(conditionalAPI(), { cache: 'no-store'});
       const data = await response.json();
       setLearners(data.rows);
       setLoading(false);

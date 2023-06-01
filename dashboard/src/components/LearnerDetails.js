@@ -10,7 +10,7 @@ const LearnerDetails = ({ learnerId }) => {
   useEffect(() => {
     async function fetchLearner() {
       try {
-        const response = await fetch(`/api/learners/${learnerId}`);
+        const response = await fetch(`/api/learners/${learnerId}`, { cache: 'no-store'});
         const data = await response.json();
         setLearner(data.rows[0]);
       } catch (error) {
