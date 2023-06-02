@@ -1,5 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
 const CohortTable = ({ cohortData }) => {
   const [users, setUsers] = useState([]);
@@ -34,6 +35,7 @@ const CohortTable = ({ cohortData }) => {
                   <th className="px-6 py-4 bg-gray-300">
                     Github (Last commit)
                   </th>
+                  <th className="px-6 py-4 bg-gray-300">More</th>
                 </tr>
               </thead>
               <tbody>
@@ -57,6 +59,13 @@ const CohortTable = ({ cohortData }) => {
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {user.github_last_commit}
+                    </td>
+                    <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
+                      <div className="w-6 h-6 flex items-center justify-center">
+                        <Link href={`/dashboard/learners/${user.id}`}>
+                          <span style={{ fontSize: "14px" }}>&#9658;</span>
+                        </Link>
+                      </div>
                     </td>
                   </tr>
                 ))}
