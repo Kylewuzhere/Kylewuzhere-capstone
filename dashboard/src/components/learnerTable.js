@@ -30,8 +30,6 @@ const LearnerTable = ({ content }) => {
       return order === "asc"
         ? a.first_name.localeCompare(b.first_name)
         : b.first_name.localeCompare(a.first_name);
-    } else if (column === "id") {
-      return order === "asc" ? a.id - b.id : b.id - a.id;
     } else if (column === "cohort") {
       return order === "asc"
         ? a.name.localeCompare(b.name)
@@ -71,13 +69,6 @@ const LearnerTable = ({ content }) => {
                     <th
                       scope="col"
                       className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("id")}
-                    >
-                      Id {getSortIcon("id")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
                       onClick={() => handleSort("cohort")}
                     >
                       Cohort {getSortIcon("cohort")}
@@ -90,7 +81,7 @@ const LearnerTable = ({ content }) => {
                       Start Date {getSortIcon("startDate")}
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      End Date
+                      Programme Level
                     </th>
                     <th
                       scope="col"
@@ -117,23 +108,23 @@ const LearnerTable = ({ content }) => {
                         {learner.first_name + " " + learner.last_name}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {learner.id}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
                         {learner.name}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.programme_start}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">N/A</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {learner.programme}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.last_updated}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">N/A</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {learner.event_time || "N/A"}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
                         <div className="w-6 h-6 flex items-center justify-center">
                           <Link href={`/dashboard/learners/${learner.id}`}>
-                            {/* This will need to be customised further when we are building the indiviual pages */}
                             <span style={{ fontSize: "14px" }}>&#9658;</span>
                           </Link>
                         </div>
