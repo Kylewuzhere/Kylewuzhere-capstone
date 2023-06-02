@@ -26,8 +26,10 @@ const CohortTable = ({ cohortData }) => {
               <thead className="border-b font-medium dark:border-neutral-500">
                 <tr>
                   <th className="px-6 py-4 bg-gray-300">Name</th>
-                  <th className="px-6 py-4 bg-gray-300">ID</th>
-                  <th className="px-6 py-4 bg-gray-300">Zoom (Last log in)</th>
+
+                  <th className="px-6 py-4 bg-gray-300">
+                    Zoom (Last meeting joined)
+                  </th>
                   <th className="px-6 py-4 bg-gray-300">
                     iQualify (Last log in)
                   </th>
@@ -47,7 +49,6 @@ const CohortTable = ({ cohortData }) => {
                     <td className="whitespace-nowrap px-6 py-4">
                       {`${user.first_name} ${user.last_name}`}
                     </td>
-                    <td className="whitespace-nowrap px-6 py-4">{user.id}</td>
                     <td className="whitespace-nowrap px-6 py-4">
                       {user.zoom_logged_in}
                     </td>
