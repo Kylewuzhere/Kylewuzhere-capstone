@@ -81,7 +81,7 @@ const LearnerTable = ({ content }) => {
                       Start Date {getSortIcon("startDate")}
                     </th>
                     <th scope="col" className="px-6 py-4">
-                      Programme Level
+                      Program Level
                     </th>
                     <th
                       scope="col"
