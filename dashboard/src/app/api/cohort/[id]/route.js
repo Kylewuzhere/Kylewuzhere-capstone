@@ -21,25 +21,25 @@ learners
 LEFT JOIN (
   SELECT learner_id, MAX(event_time) AS event_time
   FROM activity_log
-  WHERE source = 'Zoom' AND event_type = 'logged in'
+  WHERE source = 'zoom' AND event_type = 'joined meeting'
   GROUP BY learner_id
 ) AS zoom ON learners.id = zoom.learner_id 
 LEFT JOIN (
   SELECT learner_id, MAX(event_time) AS event_time
   FROM activity_log
-  WHERE source = 'iQualify' AND (event_type = 'logged in' OR event_type = 'joined meeting')
+  WHERE source = 'iqualify' AND (event_type = 'logged in' OR event_type = 'joined meeting')
   GROUP BY learner_id
 ) AS iqualify ON learners.id = iqualify.learner_id
 LEFT JOIN (
   SELECT learner_id, MAX(event_time) AS event_time
   FROM activity_log
-  WHERE source = 'Slack' AND event_type = 'logged in'
+  WHERE source = 'slack' AND event_type = 'logged in'
   GROUP BY learner_id
 ) AS slack ON learners.id = slack.learner_id 
 LEFT JOIN (
   SELECT learner_id, MAX(event_time) AS event_time
   FROM activity_log
-  WHERE source = 'Github' AND event_type = 'pushed commit'
+  WHERE source = 'github' AND event_type = 'pushed commit'
   GROUP BY learner_id
 ) AS github ON learners.id = github.learner_id
 WHERE learners.cohort_id = $1;
