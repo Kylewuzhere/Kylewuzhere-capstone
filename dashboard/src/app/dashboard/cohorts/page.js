@@ -1,17 +1,20 @@
+"use client";
+import { useState, useEffect } from "react";
 import CohortTitle from "@/components/CohortTitle";
 import Link from "next/link";
 
 export default async function Cohorts() {
-  async function GetCohorts() {
-    // Call the /cohort route with a GET request
-    const query = await fetch("http://localhost:3000/api/cohort", { cache: 'no-store'});
-    const response = await query.json();
+  const [cohorts, setCohorts] = useState([]);
 
-    // Returns an array of cohort names and id's
-    return response.rows;
-  }
-
-  const cohorts = await GetCohorts();
+  useEffect(() => {
+    async function GetCohorts() {
+      // Call the /cohort route with a GET request
+      const response = await fetch("http://localhost:3000/api/cohort");
+      const data = await response.json();
+      setCohorts(data.rows);
+    }
+    GetCohorts();
+  }, []);
 
   return (
     <div className=" w-full h-full bg-grey-light">
