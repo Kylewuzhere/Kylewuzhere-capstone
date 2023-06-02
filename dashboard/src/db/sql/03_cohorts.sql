@@ -9,56 +9,56 @@ INSERT INTO
   cohorts (id, name, email, programme_start)
 VALUES
   (
-    'a8581c97-1564-4042-a1be-c70e00f58cc2',
-    'streich harris',
-    'streich.harris@developersinstitute.ac.nz',
+    '3657df0f-e81f-413e-8e51-9619b258dda6',
+    'rolfsonbahringer',
+    'rolfsonbahringer@developersinstitute.ac.nz',
     '21/08/2021'
   ),
   (
-    'b547433c-89ad-4735-afb0-d34edc702367',
-    'dachpowlowski',
-    'dachpowlowski@developersinstitute.ac.nz',
+    '9571adad-b3ad-487c-886f-5248abe6ddde',
+    'kilback tromp',
+    'kilback.tromp@developersinstitute.ac.nz',
     '21/06/2021'
   ),
   (
-    '4eb66769-f91c-4c45-87f3-f4887d600b1d',
-    'cruickshanksons',
-    'cruickshanksons@developersinstitute.ac.nz',
+    '65e48876-9a4c-4d82-bb62-21efc3f2e1d7',
+    'lockman dicki',
+    'lockman.dicki@developersinstitute.ac.nz',
     '21/04/2021'
   ),
   (
-    'ba9aa372-858b-40fd-82bf-2ee567731854',
-    'satterfield group',
-    'satterfield.group@developersinstitute.ac.nz',
+    '88d69f7a-8090-42fc-a900-3733784a22d3',
+    'raulynch',
+    'raulynch@developersinstitute.ac.nz',
     '21/02/2021'
   ),
   (
-    'e9d8a6d7-7bee-43d1-a434-3b6e7804200f',
-    'moenskiles',
-    'moenskiles@developersinstitute.ac.nz',
+    'f0731dc1-90de-449b-9b94-1186f07584ca',
+    'glover gislason',
+    'glover.gislason@developersinstitute.ac.nz',
     '21/10/2020'
   ),
   (
-    '9d82e027-1e4f-49b2-88ef-9ffb1224022e',
-    'pacochasons',
-    'pacochasons@developersinstitute.ac.nz',
+    '1e70655c-948e-44e6-a60f-43b72a0ad7bd',
+    'dickinsonsons',
+    'dickinsonsons@developersinstitute.ac.nz',
     '21/08/2020'
   ),
   (
-    '0632f4ea-9d57-47be-a641-d87ccbc137da',
-    'auer kertzmann',
-    'auer.kertzmann@developersinstitute.ac.nz',
+    'ac74d36b-1b1a-4b86-ad2f-5feff98b39ce',
+    'feilschoen',
+    'feilschoen@developersinstitute.ac.nz',
     '21/06/2020'
   ),
   (
-    '112a3f0d-b10d-4afb-8e10-b704dc180cb5',
-    'watsicasons',
-    'watsicasons@developersinstitute.ac.nz',
+    'a43508e5-19a6-49b0-a564-96afa0c84159',
+    'west towne',
+    'west.towne@developersinstitute.ac.nz',
     '21/04/2020'
   ),
   (
-    'e628075b-e270-4f3d-a722-4646dc1a42a0',
-    'schaefer inc',
-    'schaefer.inc@developersinstitute.ac.nz',
+    '74241b7b-be97-41ec-b0de-c689dbcadde7',
+    'feeney inc',
+    'feeney.inc@developersinstitute.ac.nz',
     '21/02/2020'
   )

@@ -160,17 +160,17 @@ function GenerateBaseData() {
    * 3. no activity for 3 months after the end of the 4th semester;
    */
 
-  // Loop over each day, skipping weekends, and generate data for each learner. 
+  // Loop over each day, skipping weekends, and generate data for each learner.
   for (let i = 0; i < number_of_working_days; i++) {
     // Skip Christmas Break
     if (date.getMonth() === 10) {
       // Set the date forwards 3 months (90 days)
-      date.setDate(date.getDate() + 7 + (7 * 4 * 3));
+      date.setDate(date.getDate() + 7 + 7 * 4 * 3);
       // Skip the rest of the loop
       continue;
     }
 
-    // tmpDate is used to test weather a given date is currently on the last day of the month 
+    // tmpDate is used to test weather a given date is currently on the last day of the month
     // by checking if the next day is the first of the next month
     let tmpDate = new Date(date);
     tmpDate.setDate(tmpDate.getDate() + 1);
@@ -243,7 +243,7 @@ function GenerateBaseData() {
 
       // Update the Iqualify_Data entry completion value with a random value for their grade
       Iqualify_Data[iqualify_index].completion = getRandomInt(50, 100);
-      Iqualify_Data[iqualify_index].last_updated = date.toLocaleString();
+      Iqualify_Data[iqualify_index].last_updated = date.toLocaleDateString();
 
       // Select a random number of events for the learner to make
       let number_events = getRandomInt(
@@ -254,14 +254,14 @@ function GenerateBaseData() {
 
       // Generate activity_log events for the learner
       for (let x = 0; x < number_events; x++) {
-        let event = GenerateRandomEvent(date);
+        let { source, event_type, event_data } = GenerateRandomEvent(date);
         Activity_Log.push({
           id: GenerateUUID(),
           learner_id: learner.id,
-          source: event.source,
-          event_type: event.type,
+          source,
+          event_type,
           event_time: date.toLocaleDateString(),
-          event_data: event.data,
+          event_data,
           subject_id: learner.current_subject_id,
         });
       }
@@ -283,7 +283,7 @@ function CreateIqualifyEntry(learner, date) {
     learner_id: learner.id,
     subject_id: learner.current_subject_id,
     completion: 0,
-    last_updated: date,
+    last_updated: date.toLocaleDateString(),
   });
 
   return Iqualify_Data.findIndex(
@@ -294,7 +294,7 @@ function CreateIqualifyEntry(learner, date) {
 }
 
 // Generates a random event
-function GenerateRandomEvent() {
+function GenerateRandomEvent(date) {
   const event_sources = ["github", "slack", "zoom", "iqualify"];
   const events = {
     github: [
@@ -303,12 +303,14 @@ function GenerateRandomEvent() {
       { event: "pushed commit", data: { commit_id: 1 } },
       { event: "opened pull request", data: { pull_request_id: 1 } },
       { event: "closed pull request", data: { pull_request_id: 1 } },
+      { event: "logged in", data: { date: date.toLocaleDateString() } },
     ],
     slack: [
       { event: "reacted to post", data: { post_id: 1 } },
       { event: "posted message", data: { message_id: 1 } },
       { event: "joined huddle", data: { huddle_id: 1 } },
       { event: "left huddle", data: { huddle_id: 1 } },
+      { event: "logged in", data: { date: date.toLocaleDateString() } },
     ],
     zoom: [
       { event: "joined meeting", data: { meeting_id: 1 } },
@@ -317,6 +319,7 @@ function GenerateRandomEvent() {
     iqualify: [
       { event: "viewed offering", data: { offering_id: 1 } },
       { event: "submitted assignment", data: { offering_id: 1 } },
+      { event: "logged in", data: { date: date.toLocaleDateString() } },
     ],
   };
 
@@ -324,7 +327,7 @@ function GenerateRandomEvent() {
   let event_type = events[source][getRandomInt(0, events[source].length)];
   let event_data = event_type.data;
 
-  return { source: source, type: event_type.event, data: event_data };
+  return { source, event_type: event_type.event, event_data };
 }
 
 // Generates a new set of learners that will be assigned a cohort and subject
