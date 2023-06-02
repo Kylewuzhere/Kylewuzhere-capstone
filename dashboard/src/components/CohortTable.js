@@ -9,7 +9,7 @@ const CohortTable = ({ cohortData }) => {
     async function fetchData() {
       const response = await fetch(
         `http://localhost:3000/api/cohort/${cohortData}`,
-        { cache: "no-store" }
+        { cache: 'no-store' }
       );
       const data = await response.json();
       setUsers(data.rows);
