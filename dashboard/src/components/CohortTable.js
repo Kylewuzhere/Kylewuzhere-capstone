@@ -9,7 +9,7 @@ const CohortTable = ({ cohortData }) => {
     async function fetchData() {
       const response = await fetch(
         `http://localhost:3000/api/cohort/${cohortData}`,
-        { cache: 'no-store'}
+        { cache: "no-store" }
       );
       const data = await response.json();
       setUsers(data.rows);
@@ -35,6 +35,7 @@ const CohortTable = ({ cohortData }) => {
                   <th className="px-6 py-4 bg-gray-300">
                     Github (Last commit)
                   </th>
+                  <th className="px-6 py-4 bg-gray-300">More</th>
                 </tr>
               </thead>
               <tbody>
