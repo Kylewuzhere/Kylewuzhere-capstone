@@ -30,8 +30,6 @@ const LearnerTable = ({ content }) => {
       return order === "asc"
         ? a.first_name.localeCompare(b.first_name)
         : b.first_name.localeCompare(a.first_name);
-    } else if (column === "id") {
-      return order === "asc" ? a.id - b.id : b.id - a.id;
     } else if (column === "cohort") {
       return order === "asc"
         ? a.name.localeCompare(b.name)
@@ -67,13 +65,6 @@ const LearnerTable = ({ content }) => {
                       onClick={() => handleSort("name")}
                     >
                       Name {getSortIcon("name")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("id")}
-                    >
-                      Id {getSortIcon("id")}
                     </th>
                     <th
                       scope="col"
@@ -115,9 +106,6 @@ const LearnerTable = ({ content }) => {
                     >
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.first_name + " " + learner.last_name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.id}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.name}
