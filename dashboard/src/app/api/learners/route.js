@@ -34,7 +34,7 @@ export async function GET(request) {
   } else {
     // returns ALL learners
     const { rows } = await pool.query(
-      "SELECT learners.id,first_name,last_name,current_subject_id,cohorts.name,programme_start,last_updated FROM learners FULL OUTER JOIN iqualify_data on learners.id=iqualify_data.learner_id FULL OUTER JOIN cohorts on learners.cohort_id=cohorts.id WHERE learners.current_subject_id<999"
+      "SELECT learners.id,first_name,last_name,programme,current_subject_id,cohorts.name,programme_start,last_updated FROM learners FULL OUTER JOIN iqualify_data on learners.id=iqualify_data.learner_id FULL OUTER JOIN cohorts on learners.cohort_id=cohorts.id WHERE learners.current_subject_id<999"
     );
     return NextResponse.json({ rows });
   }
