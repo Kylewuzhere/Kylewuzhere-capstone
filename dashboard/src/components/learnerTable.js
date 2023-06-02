@@ -119,7 +119,9 @@ const LearnerTable = ({ content }) => {
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.last_updated}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">N/A</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {learner.event_time || "N/A"}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
                         <div className="w-6 h-6 flex items-center justify-center">
                           <Link href={`/dashboard/learners/${learner.id}`}>
