@@ -9,56 +9,56 @@ INSERT INTO
   cohorts (id, name, email, programme_start)
 VALUES
   (
-    '3657df0f-e81f-413e-8e51-9619b258dda6',
-    'rolfsonbahringer',
-    'rolfsonbahringer@developersinstitute.ac.nz',
+    '7c765cc4-3ceb-4244-aff2-df289869f17e',
+    'morissette kozey',
+    'morissette.kozey@developersinstitute.ac.nz',
     '21/08/2021'
   ),
   (
-    '9571adad-b3ad-487c-886f-5248abe6ddde',
-    'kilback tromp',
-    'kilback.tromp@developersinstitute.ac.nz',
+    'bf949ad2-5b6b-4d54-bb11-0d8efc22043d',
+    'bartoletti hills',
+    'bartoletti.hills@developersinstitute.ac.nz',
     '21/06/2021'
   ),
   (
-    '65e48876-9a4c-4d82-bb62-21efc3f2e1d7',
-    'lockman dicki',
-    'lockman.dicki@developersinstitute.ac.nz',
+    'e347614a-b131-4d4b-96b5-e56f789d0760',
+    'greenfelderkub',
+    'greenfelderkub@developersinstitute.ac.nz',
     '21/04/2021'
   ),
   (
-    '88d69f7a-8090-42fc-a900-3733784a22d3',
-    'raulynch',
-    'raulynch@developersinstitute.ac.nz',
+    'cfeee4c6-6051-443d-bef9-ca6f7368d101',
+    'terrygreenfelder',
+    'terrygreenfelder@developersinstitute.ac.nz',
     '21/02/2021'
   ),
   (
-    'f0731dc1-90de-449b-9b94-1186f07584ca',
-    'glover gislason',
-    'glover.gislason@developersinstitute.ac.nz',
+    '2cec5193-9126-441f-ad61-6c09ae9d972f',
+    'hand group',
+    'hand.group@developersinstitute.ac.nz',
     '21/10/2020'
   ),
   (
-    '1e70655c-948e-44e6-a60f-43b72a0ad7bd',
-    'dickinsonsons',
-    'dickinsonsons@developersinstitute.ac.nz',
+    'cc532da7-5b42-47de-87bd-fd348c3f971e',
+    'bartellcarroll',
+    'bartellcarroll@developersinstitute.ac.nz',
     '21/08/2020'
   ),
   (
-    'ac74d36b-1b1a-4b86-ad2f-5feff98b39ce',
-    'feilschoen',
-    'feilschoen@developersinstitute.ac.nz',
+    '14c02e5d-d459-44e6-8522-6d7a5b204d7f',
+    'monahansons',
+    'monahansons@developersinstitute.ac.nz',
     '21/06/2020'
   ),
   (
-    'a43508e5-19a6-49b0-a564-96afa0c84159',
-    'west towne',
-    'west.towne@developersinstitute.ac.nz',
+    '918b28b6-f737-4260-9b0e-e4d418e08e0a',
+    'rath bosco',
+    'rath.bosco@developersinstitute.ac.nz',
     '21/04/2020'
   ),
   (
-    '74241b7b-be97-41ec-b0de-c689dbcadde7',
-    'feeney inc',
-    'feeney.inc@developersinstitute.ac.nz',
+    '7c61ea10-b3be-4d5a-a217-b13ac7accbfb',
+    'cartwright llc',
+    'cartwright.llc@developersinstitute.ac.nz',
     '21/02/2020'
   )
