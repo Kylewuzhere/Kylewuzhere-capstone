@@ -1,10 +1,6 @@
-const fs = require("fs");
-const crypto = require("crypto");
-
-// Import names lists from JSON files
-const GroupNames = require("./names/cohort_names.json");
-const FirstNames = require("./names/first_names.json");
-const LastNames = require("./names/last_names.json");
+const Save = require("./utils/Save");
+const { GenerateCohort, GenerateRandomEvent } = require("./utils/generators");
+const { GenerateUUID, getRandomInt } = require("./utils/utils");
 
 // Main variables for storing data
 let Cohorts = [];
@@ -12,11 +8,13 @@ let Learners = [];
 let Activity_Log = [];
 let Final_Grades = [];
 let Iqualify_Data = [];
+let Meetings = [];
+let Attendance = [];
 
 let totalEvents = 0;
 
 // Default values for the flags
-let save_method = "SQL";
+let save_method = "sql";
 let min_learners_per_cohort = 20;
 let max_learners_per_cohort = 34;
 let number_of_working_days = 365;
@@ -122,17 +120,20 @@ function Main() {
     Activity_Log: Activity_Log_Data,
     Final_Grades: Final_Grades_Data,
     Iqualify_Data: Iqualify_Data_Data,
+    Meetings: Meetings_Data,
+    Attendance: Attendance_Data,
   } = GenerateBaseData();
 
-  // Export the data to a specified format
-  Export(
-    save_method,
-    Cohorts_Data,
-    Learners_Data,
-    Activity_Log_Data,
-    Final_Grades_Data,
-    Iqualify_Data_Data
-  );
+  // Save the generated data into separate files for further processing
+  console.log(`Exporting Data as ${save_method} Files..`);
+  Save(Activity_Log_Data, "activity_log", "activity_log", save_method);
+  Save(Cohorts_Data, "cohorts", "cohorts", save_method);
+  Save(Learners_Data, "learners", "learners", save_method);
+  Save(Final_Grades_Data, "final_grades", "final_grades", save_method);
+  Save(Iqualify_Data_Data, "iqualify_data", "iqualify_data", save_method);
+  Save(Meetings_Data, "meetings", "meetings", save_method);
+  Save(Attendance_Data, "attendance", "attendance", save_method);
+  console.log(`Successfully exported to ${save_method}!`);
 }
 
 // Generate the data for each table and return them
@@ -206,7 +207,9 @@ function GenerateBaseData() {
       const { cohort, learners } = GenerateCohort(
         GenerateUUID(),
         subjects[0].id,
-        date
+        date,
+        min_learners_per_cohort,
+        max_learners_per_cohort
       );
 
       // Add the new cohort and set of learners to the base data
@@ -223,6 +226,13 @@ function GenerateBaseData() {
       date.setDate(date.getDate() + 1);
       // Skip the rest of the loop
       continue;
+    }
+
+    // Generate a meeting twice a day for each cohort, except on Fridays
+    // Student attendance is recorded for each meeting, each student has a 20% chance of not attending
+    if (date.getDay() < 5) {
+      GenerateMeetings(date, "Morning");
+      GenerateMeetings(date, "Afternoon");
     }
 
     // Generate Activity Logs for each user
@@ -274,7 +284,15 @@ function GenerateBaseData() {
 
   // Log out the total events generated and return the all base data
   console.log(totalEvents.toLocaleString() + " events generated.");
-  return { Cohorts, Learners, Activity_Log, Final_Grades, Iqualify_Data };
+  return {
+    Cohorts,
+    Learners,
+    Activity_Log,
+    Final_Grades,
+    Iqualify_Data,
+    Meetings,
+    Attendance,
+  };
 }
 // Creates a new entry into the Iqualify_Data array
 function CreateIqualifyEntry(learner, date) {
@@ -293,179 +311,45 @@ function CreateIqualifyEntry(learner, date) {
   );
 }
 
-// Generates a random event
-function GenerateRandomEvent(date) {
-  const event_sources = ["github", "slack", "zoom", "iqualify"];
-  const events = {
-    github: [
-      { event: "opened issue", data: { issue_id: 1 } },
-      { event: "closed issue", data: { issue_id: 1 } },
-      { event: "pushed commit", data: { commit_id: 1 } },
-      { event: "opened pull request", data: { pull_request_id: 1 } },
-      { event: "closed pull request", data: { pull_request_id: 1 } },
-      { event: "logged in", data: { date: date.toLocaleDateString() } },
-    ],
-    slack: [
-      { event: "reacted to post", data: { post_id: 1 } },
-      { event: "posted message", data: { message_id: 1 } },
-      { event: "joined huddle", data: { huddle_id: 1 } },
-      { event: "left huddle", data: { huddle_id: 1 } },
-      { event: "logged in", data: { date: date.toLocaleDateString() } },
-    ],
-    zoom: [
-      { event: "joined meeting", data: { meeting_id: 1 } },
-      { event: "left meeting", data: { meeting_id: 1 } },
-    ],
-    iqualify: [
-      { event: "viewed offering", data: { offering_id: 1 } },
-      { event: "submitted assignment", data: { offering_id: 1 } },
-      { event: "logged in", data: { date: date.toLocaleDateString() } },
-    ],
-  };
+function GenerateMeetings(date, when) {
+  //
+  Cohorts.forEach((cohort) => {
+    CreateMeeting(cohort, date, when);
 
-  let source = event_sources[getRandomInt(0, event_sources.length)];
-  let event_type = events[source][getRandomInt(0, events[source].length)];
-  let event_data = event_type.data;
+    // Filter all the learners to only those in the current cohort
+    const learners = Learners.filter(
+      (learner) => learner.cohort_id === cohort.id
+    );
 
-  return { source, event_type: event_type.event, event_data };
-}
-
-// Generates a new set of learners that will be assigned a cohort and subject
-function GenerateLearners(n, cohort_id, subject_id, date) {
-  let newLearners = [];
-
-  for (let i = 0; i < n; i++) {
-    let first_name =
-      FirstNames[getRandomInt(0, FirstNames.length)].toLowerCase();
-    let last_name = LastNames[getRandomInt(0, LastNames.length)].toLowerCase();
-
-    newLearners.push({
-      id: GenerateUUID(),
-      first_name: first_name,
-      last_name: last_name,
-      email: `${first_name}.${last_name}@developersinstitute.ac.nz`,
-      role: "Learner",
-      cohort_id: cohort_id,
-      current_subject_id: subject_id,
-      created_at: date.toLocaleDateString(),
-      programme: getRandomInt(0, 100) % 2 == 0 ? 5 : 6,
+    // Add attendance for each learner in the cohort
+    learners.forEach((learner) => {
+      if (learner.current_subject_id === 999) return;
+      AttendMeeting(learner.id, Meetings[Meetings.length - 1]);
     });
-  }
-
-  return newLearners;
-}
-// Generates a new cohort with a random number of learners between min_learners and max_learners
-function GenerateCohort(cohort_id, subject_id, date) {
-  let { name } = GroupNames[getRandomInt(0, GroupNames.length)];
-  let cohort_name = name.toLowerCase();
-
-  let cohort = {
-    id: cohort_id,
-    name: cohort_name,
-    email: `${cohort_name.split(" ").join(".")}@developersinstitute.ac.nz`,
-    programme_start: date.toLocaleDateString(),
-  };
-
-  let learners = GenerateLearners(
-    getRandomInt(min_learners_per_cohort, max_learners_per_cohort),
-    cohort_id,
-    subject_id,
-    date
-  );
-
-  return { cohort, learners };
-}
-
-function Export(
-  save_method,
-  Cohorts_Data,
-  Learners_Data,
-  Activity_Log_Data,
-  Final_Grades_Data,
-  Iqualify_Data_Data
-) {
-  // Save the generated data into separate files for further processing
-  console.log(`Exporting Data as ${save_method} Files..`);
-  switch (save_method) {
-    case "SQL":
-      ExportToSQL(Activity_Log_Data, "activity_log", "activity_log");
-      ExportToSQL(Cohorts_Data, "cohorts", "cohorts");
-      ExportToSQL(Learners_Data, "learners", "learners");
-      ExportToSQL(Final_Grades_Data, "final_grades", "final_grades");
-      ExportToSQL(Iqualify_Data_Data, "iqualify_data", "iqualify_data");
-      break;
-    case "CSV":
-      ExportToCSV(Activity_Log_Data, "activity_log", "activity_log");
-      ExportToCSV(Cohorts_Data, "cohorts", "cohorts");
-      ExportToCSV(Learners_Data, "learners", "learners");
-      ExportToCSV(Final_Grades_Data, "final_grades", "final_grades");
-      ExportToCSV(Iqualify_Data_Data, "iqualify_data", "iqualify_data");
-      break;
-  }
-  console.log(`Successfully exported to ${save_method}!`);
-}
-function ExportToCSV(data, dataName) {
-  const columnHeaders = Object.keys(data[0]);
-  const csvData = [columnHeaders];
-
-  data.forEach((item) => {
-    const values = Object.values(item).map((value) => {
-      if (typeof value === "object") {
-        return JSON.stringify(value);
-      }
-      return value;
-    });
-    csvData.push(values);
-  });
-  const csvContent = csvData.map((row) => row.join(",")).join("\n");
-
-  fs.writeFile(`./data/${dataName}.csv`, csvContent, "utf-8", (err) => {
-    if (err) {
-      console.log("An error occured while writing CSV file", err);
-      return;
-    }
   });
 }
-function ExportToSQL(data, dataName, tableName) {
-  let initial_value = `INSERT INTO ${tableName} (${Object.keys(
-    data[0]
-  )}) VALUES `;
 
-  let data_string = data
-    .map(
-      (item) =>
-        `(${Object.values(item).map(
-          (value) =>
-            `'${
-              typeof value === "object"
-                ? `{${Object.keys(value).map((v) => `"${v}":"${value[v]}"`)}}`
-                : value
-            }'`
-        )})`
-    )
-    .join(",\n");
-
-  fs.writeFile(
-    `./data/${dataName}.sql`,
-    initial_value + data_string,
-    "utf-8",
-    (err) => {
-      if (err) {
-        console.log("An error occured while writing SQL file", err);
-        return;
-      }
-    }
-  );
+function CreateMeeting(cohort, date, when) {
+  let time = when === "Morning" ? 9 : 13;
+  Meetings.push({
+    id: Meetings.length,
+    timestamp: `${date.getFullYear()}-${
+      date.getMonth() < 10 ? `0${date.getMonth()}` : date.getMonth()
+    }-${date.getDate()}T${time}:30:00.000Z`,
+    cohort_id: cohort.id,
+  });
 }
 
-// Returns a random integer between min and max
-function getRandomInt(min, max) {
-  const Clamp = (num, min, max) => Math.min(Math.max(num, min), max);
-  return Clamp(Math.floor(Math.random() * max), min, max);
-}
-// Returns a random UUID
-function GenerateUUID() {
-  return crypto.randomUUID();
+function AttendMeeting(learner_id, meeting) {
+  let random_number = getRandomInt(0, 5);
+  // 20% chance of a learner not attending a meeting
+  if (random_number === 3) return;
+
+  Attendance.push({
+    id: Attendance.length,
+    learner_id: learner_id,
+    meeting_id: meeting.id,
+  });
 }
 
 Main();
