@@ -90,8 +90,12 @@ const LearnerTable = ({ content }) => {
                     >
                       Start Date {getSortIcon("startDate")}
                     </th>
-                    <th scope="col" className="px-6 py-4">
-                      Programme Level
+                    <th
+                      scope="col"
+                      className="px-6 py-4 cursor-pointer"
+                      onClick={() => handleSort("programmeLevel")}
+                    >
+                      Programme Level {getSortIcon("programmeLevel")}
                     </th>
                     <th
                       scope="col"
@@ -100,8 +104,12 @@ const LearnerTable = ({ content }) => {
                     >
                       iQualify (Last log in) {getSortIcon("iQualify")}
                     </th>
-                    <th scope="col" className="px-6 py-4">
-                      Slack (Last active)
+                    <th
+                      scope="col"
+                      className="px-6 py-4 cursor-pointer"
+                      onClick={() => handleSort("slack")}
+                    >
+                      Slack (Last active) {getSortIcon("slack")}
                     </th>
                     <th scope="col" className="px-6 py-4">
                       More
