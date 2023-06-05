@@ -7,10 +7,9 @@ beforeEach(async () => {
 
 const columns = [
   "Name",
-  "Id",
   "Cohort",
   "Start Date",
-  "End Date",
+  "Programme Level",
   "iQualify (Last log in)",
   "Slack (Last active)",
   "More",
