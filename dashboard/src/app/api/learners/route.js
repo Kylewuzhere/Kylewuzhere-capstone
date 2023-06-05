@@ -27,14 +27,41 @@ export async function GET(request) {
     const entries = slicer(query);
     // retrieves all learners that match the search query (NAME)
     const { rows } = await pool.query(
-      "SELECT learners.id,first_name,last_name,cohorts.name,programme_start,last_updated FROM learners FULL OUTER JOIN iqualify_data ON learners.id=iqualify_data.learner_id FULL OUTER JOIN cohorts ON learners.cohort_id=cohorts.id WHERE (first_name LIKE $1 OR last_name LIKE $1) OR (last_name LIKE $2 OR first_name LIKE $2) AND learners.current_subject_id<999",
+      `SELECT
+          learners.id,
+          learners.first_name,
+          learners.last_name,
+          learners.current_subject_id,
+          cohorts.name AS cohort_name,
+          cohorts.programme_start,
+          learners.programme,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'zoom' AND learner_id = learners.id) AS zoom_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'iqualify' AND learner_id = learners.id) AS iqualify_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'slack' AND learner_id = learners.id) AS slack_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'github' AND learner_id = learners.id) AS github_last_commit
+        FROM learners
+        JOIN cohorts ON learners.cohort_id = cohorts.id
+        WHERE (learners.first_name LIKE $1 OR learners.last_name LIKE $1) OR (learners.first_name LIKE $2 OR learners.last_name LIKE $2)`,
       [entries[0], entries[1]]
     );
     return NextResponse.json({ rows });
   } else {
     // returns ALL learners
     const { rows } = await pool.query(
-      "SELECT learners.id,first_name,last_name,programme,current_subject_id,cohorts.name,programme_start,last_updated, slack.event_time FROM learners FULL OUTER JOIN iqualify_data ON learners.id=iqualify_data.learner_id FULL OUTER JOIN cohorts ON learners.cohort_id=cohorts.id LEFT JOIN (SELECT learner_id, MAX(event_time) AS event_time FROM activity_log WHERE source = 'slack' AND event_type = 'logged in' GROUP BY learner_id) AS slack ON learners.id = slack.learner_id WHERE learners.current_subject_id<999"
+      `SELECT
+          learners.id,
+          learners.first_name,
+          learners.last_name,
+          learners.current_subject_id,
+          cohorts.name AS cohort_name,
+          cohorts.programme_start,
+          learners.programme,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'zoom' AND learner_id = learners.id) AS zoom_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'iqualify' AND learner_id = learners.id) AS iqualify_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'slack' AND learner_id = learners.id) AS slack_logged_in,
+          (SELECT MAX(event_time) FROM activity_log WHERE source = 'github' AND learner_id = learners.id) AS github_last_commit
+        FROM learners
+        JOIN cohorts ON learners.cohort_id = cohorts.id`
     );
     return NextResponse.json({ rows });
   }
