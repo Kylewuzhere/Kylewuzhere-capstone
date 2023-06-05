@@ -108,7 +108,7 @@ const LearnerTable = ({ content }) => {
                         {learner.first_name + " " + learner.last_name}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {learner.name}
+                        {learner.cohort_name}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.programme_start}
@@ -117,10 +117,10 @@ const LearnerTable = ({ content }) => {
                         {learner.programme}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {learner.last_updated}
+                        {learner.iqualify_logged_in}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4">
-                        {learner.event_time || "N/A"}
+                        {learner.slack_logged_in || "N/A"}
                       </td>
                       <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
                         <div className="w-6 h-6 flex items-center justify-center">
