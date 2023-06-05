@@ -28,33 +28,35 @@ const LearnerTable = ({ content }) => {
 
     if (column === "name") {
       return order === "asc"
-        ? a.first_name.localeCompare(b.first_name)
-        : b.first_name.localeCompare(a.first_name);
+        ? (a.first_name || "").localeCompare(b.first_name || "")
+        : (b.first_name || "").localeCompare(a.first_name || "");
     } else if (column === "cohort") {
       return order === "asc"
-        ? a.name.localeCompare(b.name)
-        : b.name.localeCompare(a.name);
+        ? (a.cohort_name || "").localeCompare(b.cohort_name || "")
+        : (b.cohort_name || "").localeCompare(a.cohort_name || "");
     } else if (column === "iQualify") {
       return order === "asc"
-        ? a.last_updated.localeCompare(b.last_updated)
-        : b.last_updated.localeCompare(a.last_updated);
+        ? (a.iqualify_logged_in || "").localeCompare(b.iqualify_logged_in || "")
+        : (b.iqualify_logged_in || "").localeCompare(
+            a.iqualify_logged_in || ""
+          );
     } else if (column === "startDate") {
       return order === "asc"
         ? (a.programme_start || "").localeCompare(b.programme_start || "")
-        : (b.programme_start || "").localeCompare(a.programme_start || "")
-        else if (column === "slack") {
-          return order === "asc"
-            ? (a.slack_logged_in || "").localeCompare(b.slack_logged_in || "")
-            : (b.slack_logged_in || "").localeCompare(a.slack_logged_in || "");
-        } else if (column === "programmeLevel") {
-          const levelA = typeof a.programme === "number" ? a.programme : 0;
-          const levelB = typeof b.programme === "number" ? b.programme : 0;
-    
-          return order === "asc" ? levelA - levelB : levelB - levelA;
-        }
-    
-        return 0;
-      });
+        : (b.programme_start || "").localeCompare(a.programme_start || "");
+    } else if (column === "slack") {
+      return order === "asc"
+        ? (a.slack_logged_in || "").localeCompare(b.slack_logged_in || "")
+        : (b.slack_logged_in || "").localeCompare(a.slack_logged_in || "");
+    } else if (column === "programmeLevel") {
+      const levelA = typeof a.programme === "number" ? a.programme : 0;
+      const levelB = typeof b.programme === "number" ? b.programme : 0;
+
+      return order === "asc" ? levelA - levelB : levelB - levelA;
+    }
+
+    return 0;
+  });
 
   return (
     <div className="flex flex-col overflow-x-auto">
