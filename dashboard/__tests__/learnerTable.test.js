@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import LearnerTable from "@/components/learnerTable";
+import LearnerTable from "@/components/LearnerTable";
 
 beforeEach(async () => {
   render(<LearnerTable content={single} />);
