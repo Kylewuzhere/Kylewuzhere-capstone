@@ -41,13 +41,20 @@ const LearnerTable = ({ content }) => {
     } else if (column === "startDate") {
       return order === "asc"
         ? (a.programme_start || "").localeCompare(b.programme_start || "")
-        : (b.programme_start || "").localeCompare(a.programme_start || "");
-
-      return order === "asc" ? dateA - dateB : dateB - dateA;
-    }
-
-    return 0;
-  });
+        : (b.programme_start || "").localeCompare(a.programme_start || "")
+        else if (column === "slack") {
+          return order === "asc"
+            ? (a.slack_logged_in || "").localeCompare(b.slack_logged_in || "")
+            : (b.slack_logged_in || "").localeCompare(a.slack_logged_in || "");
+        } else if (column === "programmeLevel") {
+          const levelA = typeof a.programme === "number" ? a.programme : 0;
+          const levelB = typeof b.programme === "number" ? b.programme : 0;
+    
+          return order === "asc" ? levelA - levelB : levelB - levelA;
+        }
+    
+        return 0;
+      });
 
   return (
     <div className="flex flex-col overflow-x-auto">
