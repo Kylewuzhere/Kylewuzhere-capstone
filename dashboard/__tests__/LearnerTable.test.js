@@ -28,7 +28,6 @@ describe("LearnerTable", () => {
       expect(column).toHaveTextContent(columns[index]);
     });
   });
-  // TODO: test that table renders learners in data.json
   it("renders a table with the correct rows length based on data.json", async () => {
     // +1 row because of table headers
     const table = await screen.findByRole("table");
