@@ -6,7 +6,24 @@ const CohortDetails = ({ cohortId }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    async function fetchCohort() {}
+    async function fetchCohort() {
+      try {
+        const response = await fetch(`/api/cohort`, {
+          cache: "no-store",
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch cohort");
+        }
+
+        const data = await response.json();
+        const foundCohort = data.rows.find((cohort) => cohort.id === cohortId);
+        setCohort(foundCohort);
+      } catch (error) {
+        console.error("Error fetching cohort:", error);
+        setError(error.message);
+      }
+    }
 
     fetchCohort();
   }, [cohortId]);
