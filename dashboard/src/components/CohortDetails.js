@@ -28,3 +28,5 @@ const CohortDetails = ({ cohortId }) => {
     fetchCohort();
   }, [cohortId]);
 };
+
+export default CohortDetails;
