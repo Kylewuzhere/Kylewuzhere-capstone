@@ -27,6 +27,30 @@ const CohortDetails = ({ cohortId }) => {
 
     fetchCohort();
   }, [cohortId]);
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  return (
+    <div
+      style={{ width: "350px" }}
+      className="bg-blue-light shadow-md rounded-md p-8 ml-4 mt-4 flex flex-col"
+    >
+      {cohort && (
+        <div className="flex justify-between items-start">
+          <div className="flex items-start">
+            <div>
+              <h2 className="text-xl font-bold mb-2">{cohort.name}</h2>
+              <p className="text-sm">
+                Programme Start: {cohort.programme_start}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default CohortDetails;
