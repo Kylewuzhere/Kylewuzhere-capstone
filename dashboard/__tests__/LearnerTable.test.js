@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LearnerTable from "@/components/learnerTable";
+import LearnerTable from "@/components/LearnerTable";
 import { rows } from "../data/learnerData.json";
 
 beforeEach(async () => {
