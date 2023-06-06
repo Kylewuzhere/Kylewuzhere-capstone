@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/Sidebar";
 import { usePathname } from "next/navigation";
 
 jest.mock("next/navigation");
