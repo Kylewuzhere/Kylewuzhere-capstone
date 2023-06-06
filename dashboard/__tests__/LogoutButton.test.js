@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { LogoutButton } from "@/components/logoutButton";
+import { LogoutButton } from "@/components/LogoutButton";
 import { signOut } from "next-auth/react";
 
 jest.mock("next-auth/react");

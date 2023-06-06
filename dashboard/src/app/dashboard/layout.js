@@ -1,4 +1,4 @@
-import Sidebar from "@/components/sidebar";
+import Sidebar from "@/components/Sidebar";
 
 import { getServerSession } from "next-auth/next";
 import { redirect } from "next/navigation";

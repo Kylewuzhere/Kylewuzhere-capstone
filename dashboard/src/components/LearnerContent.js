@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Table from "@/components/LearnerTable";
+import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
 
@@ -42,7 +42,7 @@ const LearnerContent = () => {
       {!loading && (
         <>
           <SearchBar />
-          <Table content={learners} />
+          <LearnerTable content={learners} />
         </>
       )}
     </>

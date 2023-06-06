@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import CohortTitle from "@/components/CohortTitle";
 import Link from "next/link";
 
-export default async function Cohorts() {
+export default function Cohorts() {
   const [cohorts, setCohorts] = useState([]);
 
   useEffect(() => {

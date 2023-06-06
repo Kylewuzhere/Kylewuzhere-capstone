@@ -1,8 +1,10 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import LearnerTable from "@/components/LearnerTable";
+import { rows } from "../data/learnerData.json";
 
 beforeEach(async () => {
-  render(<LearnerTable content={single} />);
+  render(<LearnerTable content={rows} />);
 });
 
 const columns = [
@@ -14,38 +16,11 @@ const columns = [
   "Slack (Last active)",
   "More",
 ];
-const single = [
-  {
-    first_name: "Amii",
-    last_name: "Juan",
-    id: 5,
-    name: "consequat",
-    programme_start: "2022-12-29 05:29:12",
-    last_updated: "2023-02-09 20:22:44",
-  },
-];
-const multi = [
-  {
-    first_name: "Win",
-    last_name: "De Mattia",
-    id: 146,
-    name: "sed",
-    programme_start: "2022-09-27 10:56:58",
-    last_updated: "2023-03-04 06:39:58",
-  },
-  {
-    first_name: "Kirby",
-    last_name: "De Caville",
-    id: 182,
-    name: "vestibulum",
-    programme_start: "2022-10-22 19:24:00",
-    last_updated: "2023-05-09 05:06:33",
-  },
-];
+
 describe("LearnerTable", () => {
   it("renders a table with the correct columns", async () => {
     const table = await screen.findByRole("table");
-    const columnHeaders = await screen.findAllByRole("columnheader");
+    const columnHeaders = screen.queryAllByRole("columnheader");
 
     expect(table).toBeInTheDocument();
     expect(columnHeaders).toHaveLength(columns.length);
@@ -53,5 +28,26 @@ describe("LearnerTable", () => {
       expect(column).toHaveTextContent(columns[index]);
     });
   });
-  // TODO: test that table renders learners in data.json
+  it("renders a table with the correct rows length based on data.json", async () => {
+    // +1 row because of table headers
+    const table = await screen.findByRole("table");
+    const rows = screen.getAllByRole("row");
+
+    expect(table).toBeInTheDocument();
+    expect(rows).toHaveLength(6);
+    expect(rows[1]).toHaveTextContent("Amii Juan");
+  });
+  it("renders a table with data and sorts by name in descending order", async () => {
+    const table = await screen.findByRole("table");
+    const nameHeader = screen.getAllByRole("columnheader")[0];
+    const sortIcon = screen.getByText("▲");
+
+    expect(table).toBeInTheDocument();
+    expect(nameHeader).toBeInTheDocument();
+    expect(sortIcon).toBeInTheDocument();
+    await userEvent.click(nameHeader);
+
+    const firstRow = screen.getAllByRole("row")[1];
+    expect(firstRow).toHaveTextContent("Mariam Saura");
+  });
 });
