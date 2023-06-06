@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home renders Home correctly 1`] = `
+<div
+  className="flex min-h-screen pb-24 items-center justify-center bg-grey-dark"
+>
+  <button
+    className="text-white bg-orange py-2 px-7 rounded text-sm"
+    onClick={[Function]}
+  >
+    Sign in
+  </button>
+</div>
+`;
