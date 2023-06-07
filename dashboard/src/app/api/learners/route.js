@@ -35,7 +35,6 @@ export async function GET(request) {
           cohorts.name AS cohort_name,
           cohorts.programme_start,
           learners.programme,
-          learners.current_subject_id,
           (SELECT MAX(event_time) FROM activity_log WHERE source = 'zoom' AND learner_id = learners.id) AS zoom_logged_in,
           (SELECT MAX(event_time) FROM activity_log WHERE source = 'iqualify' AND learner_id = learners.id) AS iqualify_logged_in,
           (SELECT MAX(event_time) FROM activity_log WHERE source = 'slack' AND learner_id = learners.id) AS slack_logged_in,
