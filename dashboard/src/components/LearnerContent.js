@@ -5,7 +5,6 @@ import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
 
-// LearnerContent is a containing client component that lets table & searchbar components interact.
 const LearnerContent = ({ selectedFilter }) => {
   const [loading, setLoading] = useState(true);
   const [learners, setLearners] = useState([]);
@@ -23,6 +22,7 @@ const LearnerContent = ({ selectedFilter }) => {
         return "http://localhost:3000/api/learners";
       }
     };
+
     // fetch data under the api endpoint of conditionalAPI()
     async function fetchLearners() {
       const response = await fetch(conditionalAPI(), { cache: "no-store" });
@@ -30,6 +30,7 @@ const LearnerContent = ({ selectedFilter }) => {
       setLearners(data.rows);
       setLoading(false);
     }
+
     fetchLearners();
   }, []);
 
@@ -42,19 +43,17 @@ const LearnerContent = ({ selectedFilter }) => {
     return true;
   });
 
-  // while data is yet to load, display loading view
-  // once data is loaded,display searchbar and table
-  // if no learners are found, display "No Learners Found"
   return (
     <>
       {loading && <LoadingView />}
       {!loading && (
         <>
           <SearchBar />
-          <LearnerTable content={learners} />
+          <LearnerTable content={filteredLearners} />
         </>
       )}
     </>
   );
 };
+
 export default LearnerContent;
