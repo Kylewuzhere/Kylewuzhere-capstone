@@ -15,6 +15,7 @@ export default function Learners() {
       <LearnersTitle
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
+        showFilters={true}
       />
       <LearnerContent selectedFilter={selectedFilter} />
     </div>
