@@ -5,10 +5,11 @@ import Link from "next/link";
 
 export default function Cohorts() {
   const [cohorts, setCohorts] = useState([]);
+  const [selectedFilter, setSelectedFilter] = useState("active");
+  const [filteredCohorts, setFilteredCohorts] = useState([]);
 
   useEffect(() => {
     async function GetCohorts() {
-      // Call the /cohort route with a GET request
       const response = await fetch("http://localhost:3000/api/cohort");
       const data = await response.json();
       setCohorts(data.rows);
