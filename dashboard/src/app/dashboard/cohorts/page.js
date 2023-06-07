@@ -26,6 +26,16 @@ export default function Cohorts() {
     return new Date(`${year}-${month}-${day}`);
   };
 
+  const filterCohorts = () => {
+    if (selectedFilter === "active") {
+      setFilteredCohorts(cohorts.filter(isActiveCohort));
+    } else if (selectedFilter === "inactive") {
+      setFilteredCohorts(cohorts.filter(isInactiveCohort));
+    } else {
+      setFilteredCohorts(cohorts);
+    }
+  };
+
   return (
     <div className=" w-full h-full bg-grey-light">
       <div className="w-full mb-2 border-b-2 border-black ">
