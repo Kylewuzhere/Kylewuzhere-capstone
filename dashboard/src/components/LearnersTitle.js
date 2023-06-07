@@ -1,4 +1,4 @@
-const LearnersTitle = () => {
+const LearnersTitle = ({ selectedFilter, onFilterChange }) => {
   return (
     <div className="w-full h-12  bg-blue text-black text-3xl font-semibold pt-11 pb-9 px-12 flex items-center justify-between">
       <h1 className="ml-4">LEARNERS</h1>
