@@ -36,6 +36,28 @@ export default function Cohorts() {
     }
   };
 
+  const isActiveCohort = (cohort) => {
+    const startDate = parseDate(cohort.programme_start);
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - startDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+    console.log("Active Days Difference:", daysDifference);
+    return daysDifference < 1200;
+  };
+
+  const isInactiveCohort = (cohort) => {
+    const startDate = parseDate(cohort.programme_start);
+    const currentDate = new Date();
+    const timeDifference = currentDate.getTime() - startDate.getTime();
+    const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
+    console.log("Inactive Days Difference:", daysDifference);
+    return daysDifference > 1200;
+  };
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
+
   return (
     <div className=" w-full h-full bg-grey-light">
       <div className="w-full mb-2 border-b-2 border-black ">
