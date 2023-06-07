@@ -33,6 +33,15 @@ const LearnerContent = ({ selectedFilter }) => {
     fetchLearners();
   }, []);
 
+  const filteredLearners = learners.filter((learner) => {
+    if (selectedFilter === "active") {
+      return learner.current_subject_id >= 0 && learner.current_subject_id <= 7;
+    } else if (selectedFilter === "inactive") {
+      return learner.current_subject_id === 999;
+    }
+    return true;
+  });
+
   // while data is yet to load, display loading view
   // once data is loaded,display searchbar and table
   // if no learners are found, display "No Learners Found"
