@@ -6,6 +6,7 @@ info:
 
     Additional notes:
     - Utilizing NextJS as the framework, this app's server & client are not hosted in separate docker containers.
+    - Next/Auth's functions are pretty obfuscated compared to React without a framework. Instances of unauthenticated access will result in redirects to a sign-in prompt from **okta**.
     - Template: Petstore OAS 3.0 from [editor.swagger.io](editor.swagger.io)
     - Visualize this APIspec with the help of Arjun G's Swagger Viewer in VSCode.
 
@@ -28,7 +29,9 @@ servers:
   - url: http://localhost:3000/api
 tags:
   - name: cohorts
-    description: Collections of cohorts, containing learners.
+    description: Collections of cohorts routes
+  - name: learners
+    description: All on learners
   - name: pet
     description: Everything about your Pets
   - name: store
@@ -36,19 +39,73 @@ tags:
   - name: user
     description: Operations about user
 paths:
-  # /cohorts:
-  #   get:
-  #     tags:
-  #       - cohorts
-  #     summary: Retrieve a list of cohorts
-  #     description: Retrieve a list of cohorts, with each item containing an id and name
-  #     operationId: cohort
-  #     # requestBody:
-  #     #   description: Retrieve a list of cohorts
-  #     #   content:
-  #     #     application/json:
-  #     #       schema:
-  #     #       $ref:
+  /cohort:
+    get:
+      tags:
+        - cohorts
+      summary: Retrieve a list of cohorts
+      description: Retrieve a list of cohorts, with each item containing an id and name
+      operationId: cohort
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/cohort"
+              # example:
+              #   rows:
+              #     - id: "b547433c-89ad-4735-afb0-d34edc70236"
+              #       programme_start: "21/06/2021"
+              #       name: "bartoletti hills"
+              #     - id: "e347614a-b131-4d4b-96b5-e56f789d0760"
+              #       programme_start: "21/04/2021"
+              #       name: "greenfelderkub"
+  /cohort/{id}:
+    get:
+      tags:
+        - cohorts
+      summary: Retrieve a cohort
+      description: Retrieve a cohort by id
+      operationId: cohotById
+      parameters:
+        - name: id
+          in: path
+          description: id of cohort
+          required: true
+          schema:
+            type: string
+            format: varchar
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/cohort_students"
+        "404":
+          description: cohort not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/cohort_students"
+              example:
+                rows: []
 
   /pet:
     put:
@@ -616,46 +673,73 @@ components:
       properties:
         id:
           type: string
-          example: "b547433c-89ad-4735-afb0-d34edc70236"
         name:
           type: string
-          example: "strivers"
+    cohort_students:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        zoom_logged_in:
+          type: string
+        iqualify_logged_in:
+          type: string
+        slack_logged_in:
+          type: string
+        github_last_commit:
+          type: string
     learners:
       type: object
       properties:
         id:
           type: string
-          example: a3d97f33-4614-47f9-a859-bc8044284187
         first_name:
           type: string
-          example: Moon
         last_name:
           type: string
-          example: Goodguy
         current_subject_id:
           type: integer
-          example: 1
         cohort_name:
           type: string
-          example: illriya
         programme_start:
           type: string
-          example: 9/09/2020
         programme:
           type: integer
-          example: 5
         zoom_logged_in:
           type: string
-          example: 9/09/2020
         iqualify_logged_in:
           type: string
-          example: 9/09/2020
         slack_logged_in:
           type: string
-          example: 9/09/2020
         github_last_commit:
           type: string
-          example: 9/09/2020
+    learners_solo:
+      type: object
+      properties:
+        id:
+          type: string
+        first_name:
+          type: string
+        last_name:
+          type: string
+        email:
+          type: string
+        role:
+          type: string
+        cohort_id:
+          type: string
+        current_subject_id:
+          type: integer
+        created_at:
+          type: string
+        programme:
+          type: integer
+        name:
+          type: string
     Order:
       type: object
       properties:
