@@ -92,7 +92,7 @@ paths:
                   rows:
                     type: array
                     items:
-                      $ref: "#/components/schemas/cohort_students"
+                      $ref: "#/components/schemas/cohort_learners"
         "404":
           description: cohort not found
           content:
@@ -103,7 +103,106 @@ paths:
                   rows:
                     type: array
                     items:
-                      $ref: "#/components/schemas/cohort_students"
+                      $ref: "#/components/schemas/cohort_learners"
+              example:
+                rows: []
+  /learners:
+    get:
+      tags:
+        - learners
+      summary: Retrieve a list of learners
+      description: Retrieve a list of learners, with a lot of things per learner within the list.
+      operationId: learners
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/learners"
+  /learners?search={query}:
+    get:
+      tags:
+        - learners
+      summary: Retrieve learner(s) by query
+      description: Retrieve learner(s) that can match the query from the name "search"
+      operationId: learnersSearch
+      parameters:
+        - name: search
+          in: path
+          description: name of the search query
+          required: true
+          schema:
+            type: string
+            format: varchar
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/learners"
+        "404":
+          description: No learners found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/learners"
+              example:
+                rows: []
+  /learners/{id}:
+    get:
+      tags:
+        - learners
+      summary: Retrieve an individual learner
+      description: Retrieve an individual learner by id
+      operationId: learnersById
+      parameters:
+        - name: id
+          in: path
+          description: id of learner
+          required: true
+          schema:
+            type: string
+            format: varchar
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/learners_solo"
+        "404":
+          description: learner not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  rows:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/learners_solo"
               example:
                 rows: []
 
@@ -675,7 +774,7 @@ components:
           type: string
         name:
           type: string
-    cohort_students:
+    cohort_learners:
       type: object
       properties:
         id:
