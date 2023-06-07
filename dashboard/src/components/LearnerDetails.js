@@ -10,7 +10,9 @@ const LearnerDetails = ({ learnerId }) => {
   useEffect(() => {
     async function fetchLearner() {
       try {
-        const response = await fetch(`/api/learners/${learnerId}`, { cache: 'no-store'});
+        const response = await fetch(`/api/learners/${learnerId}`, {
+          cache: 'no-store',
+        });
         const data = await response.json();
         setLearner(data.rows[0]);
       } catch (error) {
@@ -75,9 +77,13 @@ const LearnerDetails = ({ learnerId }) => {
               <h2 className="text-xl font-bold mb-2">
                 {learner.first_name} {learner.last_name}
               </h2>
-              <p className="mb-4">
+              <p className="mb-2">
                 <span className="text-gray-700">Cohort: </span>
                 {learner.name}
+              </p>
+              <p className="mb-4">
+                <span className="text-gray-700">Subject: </span>
+                {learner.subject_name}
               </p>
               <button
                 onClick={handleMoreDetails}
