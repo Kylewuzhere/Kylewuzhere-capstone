@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import Table from "@/components/learnerTable";
+import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
 
@@ -25,7 +25,7 @@ const LearnerContent = () => {
     };
     // fetch data under the api endpoint of conditionalAPI()
     async function fetchLearners() {
-      const response = await fetch(conditionalAPI(), { cache: 'no-store'});
+      const response = await fetch(conditionalAPI(), { cache: "no-store" });
       const data = await response.json();
       setLearners(data.rows);
       setLoading(false);
@@ -42,7 +42,7 @@ const LearnerContent = () => {
       {!loading && (
         <>
           <SearchBar />
-          <Table content={learners} />
+          <LearnerTable content={learners} />
         </>
       )}
     </>
