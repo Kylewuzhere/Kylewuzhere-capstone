@@ -1,11 +1,23 @@
+"use client";
+import { useState } from "react";
 import LearnersTitle from "@/components/LearnersTitle";
 import LearnerContent from "@/components/LearnerContent";
 
 export default function Learners() {
+  const [selectedFilter, setSelectedFilter] = useState("active");
+
+  const handleFilterChange = (filter) => {
+    setSelectedFilter(filter);
+  };
+
   return (
     <div className="w-full h-full border-b-2 border-black bg-blue-light">
-      <LearnersTitle />
-      <LearnerContent />
+      <LearnersTitle
+        selectedFilter={selectedFilter}
+        onFilterChange={handleFilterChange}
+        showFilters={true}
+      />
+      <LearnerContent selectedFilter={selectedFilter} />
     </div>
   );
 }
