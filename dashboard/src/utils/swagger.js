@@ -1,5 +1,5 @@
 import { createSwaggerSpec } from "next-swagger-doc";
-import { apiSpec } from "./openapi.json";
+import { apiSpec } from "./apispec.json";
 export const getApiDocs = async () => {
   const openapi = apiSpec[0];
   const spec = createSwaggerSpec({
