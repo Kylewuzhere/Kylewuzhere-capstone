@@ -4,7 +4,7 @@ import LearnersTitle from "@/components/LearnersTitle";
 import LearnerContent from "@/components/LearnerContent";
 
 export default function Learners() {
-  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [selectedFilter, setSelectedFilter] = useState("active");
 
   const handleFilterChange = (filter) => {
     setSelectedFilter(filter);
