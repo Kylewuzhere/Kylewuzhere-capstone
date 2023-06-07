@@ -23,6 +23,14 @@ const LearnersTitle = ({ selectedFilter, onFilterChange }) => {
         >
           Inactive
         </button>
+        <button
+          className={`rounded border border-black ${
+            selectedFilter === "all" ? "bg-gray-200" : "bg-grey-light"
+          } text-white px-10 py-2`}
+          onClick={() => handleFilter("all")}
+        >
+          All
+        </button>
       </div>
     </div>
   );
