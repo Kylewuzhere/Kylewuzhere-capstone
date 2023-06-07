@@ -36,6 +36,20 @@ tags:
   - name: user
     description: Operations about user
 paths:
+  # /cohorts:
+  #   get:
+  #     tags:
+  #       - cohorts
+  #     summary: Retrieve a list of cohorts
+  #     description: Retrieve a list of cohorts, with each item containing an id and name
+  #     operationId: cohort
+  #     # requestBody:
+  #     #   description: Retrieve a list of cohorts
+  #     #   content:
+  #     #     application/json:
+  #     #       schema:
+  #     #       $ref:
+
   /pet:
     put:
       tags:
