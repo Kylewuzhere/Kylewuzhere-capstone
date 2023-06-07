@@ -6,7 +6,7 @@ import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
 
 // LearnerContent is a containing client component that lets table & searchbar components interact.
-const LearnerContent = () => {
+const LearnerContent = ({ selectedFilter }) => {
   const [loading, setLoading] = useState(true);
   const [learners, setLearners] = useState([]);
 
