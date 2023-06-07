@@ -15,6 +15,14 @@ const LearnersTitle = ({ selectedFilter, onFilterChange }) => {
         >
           Active
         </button>
+        <button
+          className={`rounded border border-black ${
+            selectedFilter === "inactive" ? "bg-gray-200" : "bg-grey-light"
+          } text-white px-10 py-2`}
+          onClick={() => handleFilter("inactive")}
+        >
+          Inactive
+        </button>
       </div>
     </div>
   );
