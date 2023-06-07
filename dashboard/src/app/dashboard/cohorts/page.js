@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function Cohorts() {
   const [cohorts, setCohorts] = useState([]);
-  const [selectedFilter, setSelectedFilter] = useState("all");
+  const [selectedFilter, setSelectedFilter] = useState("active");
   const [filteredCohorts, setFilteredCohorts] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Cohorts() {
 
   useEffect(() => {
     filterCohorts();
-  }, [selectedFilter]);
+  }, [selectedFilter, cohorts]);
 
   const parseDate = (dateString) => {
     const [day, month, year] = dateString.split("/");
