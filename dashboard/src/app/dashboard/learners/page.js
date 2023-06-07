@@ -1,4 +1,4 @@
-"useclient";
+"use client";
 import { useState } from "react";
 import LearnersTitle from "@/components/LearnersTitle";
 import LearnerContent from "@/components/LearnerContent";
