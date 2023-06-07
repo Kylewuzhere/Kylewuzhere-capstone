@@ -4,8 +4,8 @@
       "openapi": "3.0.0",
       "info": {
         "title": "Swagger Petstore - OpenAPI 3.0",
-        "description": "This is the Dashboard API documentation\n\nAdditional notes:\n- Utilizing NextJS as the framework, this app's server & client are not hosted in separate docker containers.\n- Next/Auth's functions are pretty obfuscated compared to React without a framework. Instances of unauthenticated access will result in redirects to a sign-in prompt from **okta**.\n- Because OAS 3.0 does not allow Oauth (only Oauth2), security schema has been removed until then.\n- Template: Petstore OAS 3.0 from [editor.swagger.io](editor.swagger.io)\n- Visualize this APIspec with the help of Arjun G's Swagger Viewer in VSCode.\n\nInstructions to start up app:\n- startup the server in the VSCode terminal with `docker-compose up -d`\n- click the link after starting up [http://localhost:3000](http://localhost:3000)",
-        "version": "0.0.0"
+        "description": "This is the Dashboard API documentation\n\n**NextJS Notes:**\n- Utilizing NextJS as the framework, this app's server & client are not hosted in separate docker containers.\n- Next/Auth's functions are pretty obfuscated compared to React without a framework. Instances of unauthenticated access will result in redirects to a sign-in prompt from **okta**.\n- /api-doc is within the scope of the middleware, requiring sign-in to access this document.\n- With that, all api routes being tried will pass because of the developer having authentication.\n\n**Additional notes:**\n- Template: Petstore OAS 3.0 from [editor.swagger.io](editor.swagger.io)\n- Visualize this APIspec with the help of Arjun G's Swagger Viewer in VSCode.\n\n**Instructions to start up app:**\n- startup the server in the VSCode terminal with `docker-compose up -d`\n- proceed to localhost",
+        "version": "0.3.0"
       },
       "externalDocs": {
         "description": "Check out swagger over here",
