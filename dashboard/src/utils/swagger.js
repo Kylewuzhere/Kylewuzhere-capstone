@@ -309,9 +309,11 @@ export const getApiDocs = async () => {
             properties: {
               id: {
                 type: "string",
+                format: "varchar",
               },
               name: {
                 type: "string",
+                format: "varchar",
               },
             },
           },
@@ -320,24 +322,31 @@ export const getApiDocs = async () => {
             properties: {
               id: {
                 type: "string",
+                format: "varchar",
               },
               first_name: {
                 type: "string",
+                format: "varchar",
               },
               last_name: {
                 type: "string",
+                format: "varchar",
               },
               zoom_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               iqualify_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               slack_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               github_last_commit: {
                 type: "string",
+                format: "varchar",
               },
             },
           },
@@ -346,36 +355,47 @@ export const getApiDocs = async () => {
             properties: {
               id: {
                 type: "string",
+                format: "varchar",
               },
               first_name: {
                 type: "string",
+                format: "varchar",
               },
               last_name: {
                 type: "string",
+                format: "varchar",
               },
               current_subject_id: {
                 type: "integer",
+                format: "integer",
               },
               cohort_name: {
                 type: "string",
+                format: "varchar",
               },
               programme_start: {
                 type: "string",
+                format: "varchar",
               },
               programme: {
                 type: "integer",
+                format: "integer",
               },
               zoom_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               iqualify_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               slack_logged_in: {
                 type: "string",
+                format: "varchar",
               },
               github_last_commit: {
                 type: "string",
+                format: "varchar",
               },
             },
           },
@@ -384,33 +404,43 @@ export const getApiDocs = async () => {
             properties: {
               id: {
                 type: "string",
+                format: "varchar",
               },
               first_name: {
                 type: "string",
+                format: "varchar",
               },
               last_name: {
                 type: "string",
+                format: "varchar",
               },
               email: {
                 type: "string",
+                format: "varchar",
               },
               role: {
                 type: "string",
+                format: "varchar",
               },
               cohort_id: {
                 type: "string",
+                format: "integer",
               },
               current_subject_id: {
                 type: "integer",
+                format: "integer",
               },
               created_at: {
                 type: "string",
+                format: "varchar",
               },
               programme: {
                 type: "integer",
+                format: "integer",
               },
               name: {
                 type: "string",
+                format: "varchar",
               },
             },
           },
