@@ -1,6 +1,3 @@
-"use client";
-import React from "react";
-
 const FilterButton = ({ filter, selectedFilter, onFilterChange }) => {
   const isSelected = selectedFilter === filter;
   const buttonClass = `rounded ${
