@@ -1,6 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import React, { useState, useEffect, useRef } from "react";
 import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
@@ -9,34 +8,32 @@ import PaginationControls from "./PaginationControls";
 const LearnerContent = ({ selectedFilter }) => {
   const [loading, setLoading] = useState(false);
   const [learners, setLearners] = useState([]);
+  const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  // allows us to access the search query from the url
-  const searchParams = useSearchParams(true);
-  const search = searchParams.get("search");
+  const searchTimeoutRef = useRef(null);
 
   const limit = 15;
-  const nextDisabled = learners.length < limit ? true : false;
+
+  const fetchLearners = async (search = "") => {
+    let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
+    if (search) {
+      url += `&search=${search}`;
+    }
+    const response = await fetch(url, { cache: "no-store" });
+    const data = await response.json();
+    setLearners(data.rows);
+    setLoading(false);
+  };
 
   useEffect(() => {
-    // returns api endpoint based on whether or not a search query is present
-    setLoading(true);
-    const conditionalAPI = () => {
-      if (search !== null && search !== "") {
-        return `http://localhost:3000/api/learners?search=${search}limit=${limit}&page=${currentPage}`;
-      } else {
-        return `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
-      }
-    };
+    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    searchTimeoutRef.current = setTimeout(() => {
+      setCurrentPage(1);
+      fetchLearners(search);
+    }, 500);
+  }, [search]);
 
-    // fetch data under the api endpoint of conditionalAPI()
-    async function fetchLearners() {
-      const response = await fetch(conditionalAPI(), { cache: "no-store" });
-      const data = await response.json();
-      setLearners(data.rows);
-      setLoading(false);
-    }
-
+  useEffect(() => {
     fetchLearners();
   }, [currentPage]);
 
@@ -49,12 +46,14 @@ const LearnerContent = ({ selectedFilter }) => {
     return true;
   });
 
+  const nextDisabled = learners.length < limit ? true : false;
+
   return (
     <>
       {loading && <LoadingView />}
       {!loading && (
         <>
-          <SearchBar />
+          <SearchBar search={search} setSearch={setSearch} />
           <LearnerTable content={filteredLearners} />
           <PaginationControls
             onPrev={() => {

@@ -1,9 +1,12 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SearchBar from "@/components/SearchBar";
 
+jest.useFakeTimers();
+
 beforeEach(async () => {
-  render(<SearchBar />);
+  const mockSetSearch = jest.fn();
+  render(<SearchBar setSearch={mockSetSearch} />);
 });
 
 describe("SearchBar", () => {
@@ -14,10 +17,18 @@ describe("SearchBar", () => {
     expect(searchBar).toBeInTheDocument();
     expect(searchButton).toBeInTheDocument();
   });
+
   it("types a name in the search bar", async () => {
     const searchBar = screen.getByPlaceholderText("Search Learner Name");
-    await userEvent.type(searchBar, "Lynde Ivoshin");
+    userEvent.type(searchBar, "Lynde Ivoshin");
 
-    expect(searchBar).toHaveValue("Lynde Ivoshin");
+    jest.runAllTimers();
+
+    await waitFor(
+      () => {
+        expect(searchBar).toHaveValue("Lynde Ivoshin");
+      },
+      { timeout: 10000 }
+    );
   });
 });
