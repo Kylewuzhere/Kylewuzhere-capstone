@@ -29,6 +29,13 @@ const LearnerContent = ({ selectedFilter }) => {
       setLoading(false);
     };
     
+    useEffect(() => {
+      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+      searchTimeoutRef.current = setTimeout(() => {
+        setCurrentPage(1); // Reset page number to 1 when search changes
+        fetchLearners(search);
+      }, 500);
+    }, [search]);
 
   const filteredLearners = learners.filter((learner) => {
     if (selectedFilter === "active") {
