@@ -7,7 +7,7 @@ const CohortTable = ({ cohortData }) => {
   const [users, setUsers] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  const limit = 5;
+  const limit = 6;
 
   useEffect(() => {
     async function fetchData() {

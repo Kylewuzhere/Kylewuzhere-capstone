@@ -15,7 +15,7 @@ const LearnerContent = ({ selectedFilter }) => {
   const searchParams = useSearchParams(true);
   const search = searchParams.get("search");
 
-  const limit = 20;
+  const limit = 15;
   const nextDisabled = learners.length < limit ? true : false;
 
   useEffect(() => {
