@@ -71,14 +71,14 @@ const CohortTable = ({ cohortData }) => {
                       <td className="whitespace-nowrap px-6 py-4">
                         {user.github_last_commit}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
-                        <Link href={`/dashboard/learners/${user.id}`}>
-                          <div className="w-full h-full flex items-center justify-center">
+                      <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-blue-light rounded">
+                        <div className="w-full h-full flex items-center justify-center">
+                          <Link href={`/dashboard/learners/${user.id}`}>
                             <div className="w-6 h-6 flex items-center justify-center">
                               <span style={{ fontSize: "14px" }}>&#9658;</span>
                             </div>
-                          </div>
-                        </Link>
+                          </Link>
+                        </div>
                       </td>
                     </tr>
                   ))}
