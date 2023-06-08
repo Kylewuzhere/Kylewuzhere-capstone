@@ -13,8 +13,6 @@ export async function GET(request) {
   const page = searchParams.get("page");
   const offset = limit * (page - 1);
 
-  console.log(query, limit, page, offset);
-
   if (query !== null && query !== "" && query !== " ") {
     // slicer takes a string, returns an array of strings ready for SQL query
     const slicer = (input) => {
