@@ -2,13 +2,13 @@
 
 exports[`Cohorts renders Cohorts correctly 1`] = `
 <div
-  className=" w-full h-full bg-grey-light"
+  className="w-full h-full bg-grey-light"
 >
   <div
-    className="w-full mb-2 border-b-2 border-black "
+    className="w-full mb-2 border-b-2 border-black"
   >
     <div
-      className="w-full h-12  bg-grey-lighter text-black text-3xl font-semibold pt-11 pb-9 px-12 flex items-center justify-between"
+      className="w-full h-12 bg-grey-lighter text-black text-3xl font-semibold pt-11 pb-9 px-12 flex items-center justify-between"
     >
       <h1
         className="ml-4"
@@ -19,20 +19,32 @@ exports[`Cohorts renders Cohorts correctly 1`] = `
         className="text-sm flex space-x-4 mr-4"
       >
         <button
-          className="rounded border border-black bg-blue-light text-black px-10 py-2"
-        >
-          Latest
-        </button>
-        <button
-          className="rounded border border-black bg-blue-light text-black px-10 py-2"
+          className="rounded border border-black bg-gray-200 text-white px-10 py-2"
+          onClick={[Function]}
         >
           Active
+        </button>
+        <button
+          className="rounded border border-black bg-grey-light text-white px-10 py-2"
+          onClick={[Function]}
+        >
+          Inactive
+        </button>
+        <button
+          className="rounded border border-black bg-grey-light text-white px-10 py-2"
+          onClick={[Function]}
+        >
+          All
         </button>
       </div>
     </div>
   </div>
   <div
-    className="w-1/2 mx-auto h-[calc(100%-18%)] grid grid-cols-1 sm:grid-cols-2 gap-3 overflow-y-scroll"
-  />
+    className="mx-auto max-w-screen-md mt-10"
+  >
+    <div
+      className="grid grid-cols-1 sm:grid-cols-2 gap-3"
+    />
+  </div>
 </div>
 `;
