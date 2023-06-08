@@ -11,33 +11,24 @@ const LearnerContent = ({ selectedFilter }) => {
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const searchTimeoutRef = useRef(null);
-  
 
   const limit = 15;
 
   const nextDisabled = learners.length < limit ? true : false;
 
-  useEffect(() => {
-    // returns api endpoint based on whether or not a search query is present
-    setLoading(true);
-    const conditionalAPI = () => {
-      if (search !== null && search !== "") {
-        return `http://localhost:3000/api/learners?search=${search}limit=${limit}&page=${currentPage}`;
-      } else {
-        return `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
-      }
-    };
 
     // fetch data under the api endpoint of conditionalAPI()
-    async function fetchLearners() {
-      const response = await fetch(conditionalAPI(), { cache: "no-store" });
+    const fetchLearners = async (search = "") => {
+      let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
+      if (search) {
+        url += `&search=${search}`;
+      }
+      const response = await fetch(url, { cache: "no-store" });
       const data = await response.json();
       setLearners(data.rows);
       setLoading(false);
-    }
-
-    fetchLearners();
-  }, [currentPage]);
+    };
+    
 
   const filteredLearners = learners.filter((learner) => {
     if (selectedFilter === "active") {
