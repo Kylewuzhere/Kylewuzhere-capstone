@@ -6,18 +6,14 @@ export const getApiDocs = async () => {
     definition: {
       openapi: "3.0.0",
       info: {
-        title: "Swagger Petstore - OpenAPI 3.0",
+        title: "Dashboard - OpenAPI 3.0",
         description:
-          "This is the Dashboard API documentation\n\n**NextJS Notes:**\n- Utilizing NextJS as the framework, this app's server & client are not hosted in separate docker containers.\n- Next/Auth's functions are pretty obfuscated compared to React without a framework. Instances of unauthenticated access will result in redirects to a sign-in prompt from **okta**.\n- /api-doc is within the scope of the middleware, requiring sign-in to access this document.\n- With that, all api routes being tried will pass because of the developer having authentication.\n\n**Additional notes:**\n- Template: Petstore OAS 3.0 from [editor.swagger.io](editor.swagger.io)\n- Visualize this APIspec with the help of Arjun G's Swagger Viewer in VSCode.\n\n**Instructions to start up app:**\n- startup the server in the VSCode terminal with `docker-compose up -d`\n- proceed to localhost\n**All strings in the schemas are formatted with `VARCHAR`, and integers with `INTEGER`** ",
+          "This is the Dashboard API documentation\n\n**NextJS Notes:**\n- Utilizing NextJS as the framework, this app's server & client are not hosted in separate docker containers.\n- Next/Auth's functions are pretty obfuscated compared to React without a framework. Instances of unauthenticated access will result in redirects to a sign-in prompt from **okta**.\n- /api-doc is within the scope of the middleware, requiring sign-in to access this document.\n- With that, all api routes being tried will pass because of the developer having authentication.\n\n**Additional notes:**\n- Template: Petstore OAS 3.0 from [editor.swagger.io](editor.swagger.io)\n- Visualize this APIspec with the help of Arjun G's Swagger Viewer in VSCode.\n\n**I could not get authentication to properly work as an adjustable variable in `next-swagger-doc`, thus bear with this makeshift solution.**\n\nWhen authenticated, you will receive the expected `200` response body.\n\nWhen unauthenticated, you will receive `307` redirects, with a `200` response body that contains a HTML body, \n\nwith the text of: **Sign in with Okta**.\n\nRun one of the api paths on a separate page while unauthenticated as proof: `inspect -> network tab -> headers tab`\n\nAuthorization aspects do not work, but I will leave the securitySchema as a template. Not enough documentation. Visual bugs, though obvious, do not impede on readability of the content.",
         version: "0.3.0",
-      },
-      externalDocs: {
-        description: "Find out more about Swagger",
-        url: "http://swagger.io",
       },
       servers: [
         {
-          url: "http://localhost:3000/api",
+          url: `${process.env.NEXTAUTH_URL}/api`,
         },
       ],
       tags: [
@@ -53,6 +49,17 @@ export const getApiDocs = async () => {
                           },
                         },
                       },
+                    },
+                  },
+                },
+              },
+              307: {
+                description: "Redirect",
+                headers: {
+                  Location: {
+                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort`,
+                    schema: {
+                      type: "string",
                     },
                   },
                 },
@@ -94,6 +101,17 @@ export const getApiDocs = async () => {
                           },
                         },
                       },
+                    },
+                  },
+                },
+              },
+              307: {
+                description: "Redirect",
+                headers: {
+                  Location: {
+                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort%2F{id}`,
+                    schema: {
+                      type: "string",
                     },
                   },
                 },
@@ -160,6 +178,17 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              307: {
+                description: "Redirect",
+                headers: {
+                  Location: {
+                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners  Applies to search query as well`,
+                    schema: {
+                      type: "string",
+                    },
+                  },
+                },
+              },
               404: {
                 description: "No learners found",
                 content: {
@@ -221,6 +250,17 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              307: {
+                description: "Redirect",
+                headers: {
+                  Location: {
+                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners%2F{id}`,
+                    schema: {
+                      type: "string",
+                    },
+                  },
+                },
+              },
               404: {
                 description: "learner not found",
                 content: {
@@ -247,6 +287,22 @@ export const getApiDocs = async () => {
         },
       },
       components: {
+        securitySchemes: {
+          OktaAuth: {
+            type: "oauth2",
+            description: "For more information, see",
+            flows: {
+              authorizationCode: {
+                authorizationUrl: `https://trial-5417384.okta.com/oauth2/v1/authorize`,
+                tokenUrl: `https://trial-5417384.okta.com/oauth2/v1/token`,
+                oauth2RedirectUrl: `http://localhost:3000/api/auth/callback/okta`,
+                scopes: {
+                  users: "okta.users.read",
+                },
+              },
+            },
+          },
+        },
         schemas: {
           cohort: {
             type: "object",
