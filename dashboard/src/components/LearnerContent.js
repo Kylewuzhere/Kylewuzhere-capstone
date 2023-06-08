@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect, useRef } from "react";
-
-import { useSearchParams } from "next/navigation";
 import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
@@ -10,13 +8,12 @@ import PaginationControls from "./PaginationControls";
 const LearnerContent = ({ selectedFilter }) => {
   const [loading, setLoading] = useState(false);
   const [learners, setLearners] = useState([]);
+  const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-
-  // allows us to access the search query from the url
-  const searchParams = useSearchParams(true);
-  const search = searchParams.get("search");
+  const searchTimeoutRef = useRef(null);
 
   const limit = 15;
+
   const nextDisabled = learners.length < limit ? true : false;
 
   useEffect(() => {
