@@ -41,7 +41,6 @@ export default function Cohorts() {
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - startDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
-    console.log("Active Days Difference:", daysDifference);
     return daysDifference < 1200;
   };
 
@@ -50,7 +49,6 @@ export default function Cohorts() {
     const currentDate = new Date();
     const timeDifference = currentDate.getTime() - startDate.getTime();
     const daysDifference = Math.floor(timeDifference / (1000 * 3600 * 24));
-    console.log("Inactive Days Difference:", daysDifference);
     return daysDifference > 1200;
   };
 
