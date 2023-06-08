@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+
 import { useSearchParams } from "next/navigation";
 import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
