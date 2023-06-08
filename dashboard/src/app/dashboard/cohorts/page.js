@@ -67,16 +67,18 @@ export default function Cohorts() {
           showFilters={true}
         />
       </div>
-      <div className="w-1/2 mx-auto h-[calc(100%-18%)] grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {filteredCohorts.map((cohort) => (
-          <Link
-            key={cohort.id}
-            className="cohortsListItem"
-            href={`/dashboard/cohorts/${cohort.id}`}
-          >
-            {cohort.name}
-          </Link>
-        ))}
+      <div className="mx-auto max-w-screen-md mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {filteredCohorts.map((cohort) => (
+            <Link
+              key={cohort.id}
+              className="flex flex-col justify-center items-center p-8 bg-white border-2 border-black rounded h-40"
+              href={`/dashboard/cohorts/${cohort.id}`}
+            >
+              <span className="text-lg">{cohort.name}</span>
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
