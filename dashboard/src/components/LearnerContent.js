@@ -28,7 +28,7 @@ const LearnerContent = ({ selectedFilter }) => {
   useEffect(() => {
     if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
     searchTimeoutRef.current = setTimeout(() => {
-      setCurrentPage(1); 
+      setCurrentPage(1);
       fetchLearners(search);
     }, 500);
   }, [search]);
@@ -53,7 +53,7 @@ const LearnerContent = ({ selectedFilter }) => {
       {loading && <LoadingView />}
       {!loading && (
         <>
-          <SearchBar />
+          <SearchBar search={search} setSearch={setSearch} />
           <LearnerTable content={filteredLearners} />
           <PaginationControls
             onPrev={() => {
