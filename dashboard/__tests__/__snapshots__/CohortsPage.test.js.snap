@@ -19,19 +19,19 @@ exports[`Cohorts renders Cohorts correctly 1`] = `
         className="text-sm flex space-x-4 mr-4"
       >
         <button
-          className="rounded border border-black bg-gray-200 text-white px-10 py-2"
+          className="rounded border-black border bg-blue-light text-black px-10 py-2"
           onClick={[Function]}
         >
           Active
         </button>
         <button
-          className="rounded border border-black bg-grey-light text-white px-10 py-2"
+          className="rounded  bg-blue-md text-black px-10 py-2"
           onClick={[Function]}
         >
           Inactive
         </button>
         <button
-          className="rounded border border-black bg-grey-light text-white px-10 py-2"
+          className="rounded  bg-blue-md text-black px-10 py-2"
           onClick={[Function]}
         >
           All

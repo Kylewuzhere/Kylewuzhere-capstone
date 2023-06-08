@@ -5,25 +5,31 @@ const CohortTitle = ({ selectedFilter, onFilterChange, showFilters }) => {
       {showFilters && (
         <div className="text-sm flex space-x-4 mr-4">
           <button
-            className={`rounded border border-black ${
-              selectedFilter === "active" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
+            className={`rounded ${
+              selectedFilter === "active" ? "border-black border" : ""
+            } ${
+              selectedFilter === "active" ? "bg-blue-light" : "bg-blue-md"
+            } text-black px-10 py-2`}
             onClick={() => onFilterChange("active")}
           >
             Active
           </button>
           <button
-            className={`rounded border border-black ${
-              selectedFilter === "inactive" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
+            className={`rounded ${
+              selectedFilter === "inactive" ? "border-black border" : ""
+            } ${
+              selectedFilter === "inactive" ? "bg-blue-light" : "bg-blue-md"
+            } text-black px-10 py-2`}
             onClick={() => onFilterChange("inactive")}
           >
             Inactive
           </button>
           <button
-            className={`rounded border border-black ${
-              selectedFilter === "all" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
+            className={`rounded ${
+              selectedFilter === "all" ? "border-black border" : ""
+            } ${
+              selectedFilter === "all" ? "bg-blue-light" : "bg-blue-md"
+            } text-black px-10 py-2`}
             onClick={() => onFilterChange("all")}
           >
             All
