@@ -4,22 +4,28 @@ import { useSearchParams } from "next/navigation";
 import LearnerTable from "@/components/LearnerTable";
 import SearchBar from "@/components/SearchBar";
 import LoadingView from "@/components/LoadingView";
+import PaginationControls from "./PaginationControls";
 
 const LearnerContent = ({ selectedFilter }) => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [learners, setLearners] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   // allows us to access the search query from the url
   const searchParams = useSearchParams(true);
   const search = searchParams.get("search");
 
+  const limit = 15;
+  const nextDisabled = learners.length < limit ? true : false;
+
   useEffect(() => {
     // returns api endpoint based on whether or not a search query is present
+    setLoading(true);
     const conditionalAPI = () => {
       if (search !== null && search !== "") {
-        return `http://localhost:3000/api/learners?search=${search}`;
+        return `http://localhost:3000/api/learners?search=${search}limit=${limit}&page=${currentPage}`;
       } else {
-        return "http://localhost:3000/api/learners";
+        return `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
       }
     };
 
@@ -32,7 +38,7 @@ const LearnerContent = ({ selectedFilter }) => {
     }
 
     fetchLearners();
-  }, []);
+  }, [currentPage]);
 
   const filteredLearners = learners.filter((learner) => {
     if (selectedFilter === "active") {
@@ -50,6 +56,16 @@ const LearnerContent = ({ selectedFilter }) => {
         <>
           <SearchBar />
           <LearnerTable content={filteredLearners} />
+          <PaginationControls
+            onPrev={() => {
+              setCurrentPage(currentPage - 1);
+            }}
+            onNext={() => {
+              setCurrentPage(currentPage + 1);
+            }}
+            currentPage={currentPage}
+            nextDisabled={nextDisabled}
+          />
         </>
       )}
     </>
