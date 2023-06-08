@@ -14,28 +14,28 @@ const LearnerContent = ({ selectedFilter }) => {
 
   const limit = 15;
 
-  const nextDisabled = learners.length < limit ? true : false;
+  const fetchLearners = async (search = "") => {
+    let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
+    if (search) {
+      url += `&search=${search}`;
+    }
+    const response = await fetch(url, { cache: "no-store" });
+    const data = await response.json();
+    setLearners(data.rows);
+    setLoading(false);
+  };
 
+  useEffect(() => {
+    if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
+    searchTimeoutRef.current = setTimeout(() => {
+      setCurrentPage(1); 
+      fetchLearners(search);
+    }, 500);
+  }, [search]);
 
-    // fetch data under the api endpoint of conditionalAPI()
-    const fetchLearners = async (search = "") => {
-      let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
-      if (search) {
-        url += `&search=${search}`;
-      }
-      const response = await fetch(url, { cache: "no-store" });
-      const data = await response.json();
-      setLearners(data.rows);
-      setLoading(false);
-    };
-    
-    useEffect(() => {
-      if (searchTimeoutRef.current) clearTimeout(searchTimeoutRef.current);
-      searchTimeoutRef.current = setTimeout(() => {
-        setCurrentPage(1); // Reset page number to 1 when search changes
-        fetchLearners(search);
-      }, 500);
-    }, [search]);
+  useEffect(() => {
+    fetchLearners();
+  }, [currentPage]);
 
   const filteredLearners = learners.filter((learner) => {
     if (selectedFilter === "active") {
@@ -45,6 +45,8 @@ const LearnerContent = ({ selectedFilter }) => {
     }
     return true;
   });
+
+  const nextDisabled = learners.length < limit ? true : false;
 
   return (
     <>
