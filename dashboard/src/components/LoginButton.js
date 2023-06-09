@@ -9,7 +9,7 @@ export const LoginButton = () => {
       onClick={() =>
         signIn("okta", {
           redirect: true,
-          callbackUrl: "http://localhost:3000/dashboard/cohorts",
+          callbackUrl: "/dashboard/cohorts",
         })
       }
     >
