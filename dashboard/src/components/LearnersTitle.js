@@ -1,40 +1,37 @@
-"use client";
-import React from "react";
+const FilterButton = ({ filter, selectedFilter, onFilterChange }) => {
+  const isSelected = selectedFilter === filter;
+  const buttonClass = `rounded ${
+    isSelected ? "border-black border bg-gray-200" : "bg-grey-light"
+  } text-black px-10 py-2`;
+
+  return (
+    <button className={buttonClass} onClick={() => onFilterChange(filter)}>
+      {filter.charAt(0).toUpperCase() + filter.slice(1)}
+    </button>
+  );
+};
 
 const LearnersTitle = ({ selectedFilter, onFilterChange, showFilters }) => {
-  const handleFilter = (filter) => {
-    onFilterChange(filter);
-  };
-
   return (
     <div className="w-full h-12 bg-blue text-black text-3xl font-semibold pt-11 pb-9 px-12 flex items-center justify-between">
       <h1 className="ml-4">LEARNERS</h1>
       {showFilters && (
         <div className="text-sm flex space-x-4 mr-4">
-          <button
-            className={`rounded border border-black ${
-              selectedFilter === "active" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
-            onClick={() => handleFilter("active")}
-          >
-            Active
-          </button>
-          <button
-            className={`rounded border border-black ${
-              selectedFilter === "inactive" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
-            onClick={() => handleFilter("inactive")}
-          >
-            Inactive
-          </button>
-          <button
-            className={`rounded border border-black ${
-              selectedFilter === "all" ? "bg-gray-200" : "bg-grey-light"
-            } text-white px-10 py-2`}
-            onClick={() => handleFilter("all")}
-          >
-            All
-          </button>
+          <FilterButton
+            filter="active"
+            selectedFilter={selectedFilter}
+            onFilterChange={onFilterChange}
+          />
+          <FilterButton
+            filter="inactive"
+            selectedFilter={selectedFilter}
+            onFilterChange={onFilterChange}
+          />
+          <FilterButton
+            filter="all"
+            selectedFilter={selectedFilter}
+            onFilterChange={onFilterChange}
+          />
         </div>
       )}
     </div>
