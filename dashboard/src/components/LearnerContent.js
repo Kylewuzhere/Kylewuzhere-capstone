@@ -15,7 +15,7 @@ const LearnerContent = ({ selectedFilter }) => {
   const limit = 15;
 
   const fetchLearners = async (search = "") => {
-    let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}`;
+    let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}&filter=${selectedFilter}`;
     if (search) {
       url += `&search=${search}`;
     }
@@ -35,16 +35,7 @@ const LearnerContent = ({ selectedFilter }) => {
 
   useEffect(() => {
     fetchLearners();
-  }, [currentPage]);
-
-  const filteredLearners = learners.filter((learner) => {
-    if (selectedFilter === "active") {
-      return learner.current_subject_id >= 0 && learner.current_subject_id <= 7;
-    } else if (selectedFilter === "inactive") {
-      return learner.current_subject_id === 999;
-    }
-    return true;
-  });
+  }, [currentPage, selectedFilter]);
 
   const nextDisabled = learners.length < limit ? true : false;
 
@@ -54,7 +45,7 @@ const LearnerContent = ({ selectedFilter }) => {
       {!loading && (
         <>
           <SearchBar search={search} setSearch={setSearch} />
-          <LearnerTable content={filteredLearners} />
+          <LearnerTable content={learners} />
           <PaginationControls
             onPrev={() => {
               setCurrentPage(currentPage - 1);
