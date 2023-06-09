@@ -25,13 +25,13 @@ exports[`Cohorts renders Cohorts correctly 1`] = `
           Active
         </button>
         <button
-          className="rounded  bg-blue-md text-black px-10 py-2"
+          className="rounded bg-blue-md text-black px-10 py-2"
           onClick={[Function]}
         >
           Inactive
         </button>
         <button
-          className="rounded  bg-blue-md text-black px-10 py-2"
+          className="rounded bg-blue-md text-black px-10 py-2"
           onClick={[Function]}
         >
           All
