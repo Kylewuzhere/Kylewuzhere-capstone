@@ -10,7 +10,7 @@ export default function Cohorts() {
 
   useEffect(() => {
     async function getCohorts() {
-      const response = await fetch("http://localhost:3000/api/cohort");
+      const response = await fetch("/api/cohort");
       const data = await response.json();
       setCohorts(data.rows);
     }

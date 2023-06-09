@@ -7,7 +7,7 @@ export const LogoutButton = () => {
     <button
       className="text-white bg-orange py-3 px-7 rounded text-sm"
       onClick={() =>
-        signOut({ redirect: true, callbackUrl: "http://localhost:3000" })
+        signOut({ redirect: true, callbackUrl: "/" })
       }
     >
       Sign Out
