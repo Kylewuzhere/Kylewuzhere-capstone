@@ -3,7 +3,7 @@ import { rows as learners } from "../../data/learnerData.json";
 import { rows as cohorts } from "../../data/cohortData.json";
 
 export const handlers = [
-  rest.get(`http://localhost:3000/api/learners`, (req, res, ctx) => {
+  rest.get(`/api/learners`, (req, res, ctx) => {
     return res(ctx.json({ learners }));
   }),
   rest.get(`/api/learners/:id`, (req, res, ctx) => {
@@ -12,7 +12,7 @@ export const handlers = [
 
     return res(ctx.json({ rows: [learner] }));
   }),
-  rest.get(`http://localhost:3000/api/cohort`, (req, res, ctx) => {
+  rest.get(`/api/cohort`, (req, res, ctx) => {
     return res(ctx.json({ rows: cohorts }));
   }),
   rest.get(`/api/cohort/:id`, (req, res, ctx) => {
