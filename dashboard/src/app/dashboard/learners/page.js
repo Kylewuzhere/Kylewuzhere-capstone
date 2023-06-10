@@ -17,7 +17,9 @@ export default function Learners() {
         onFilterChange={handleFilterChange}
         showFilters={true}
       />
-      <LearnerContent selectedFilter={selectedFilter} />
+      <div className=" h-[70%] overflow-auto">
+        <LearnerContent selectedFilter={selectedFilter} />
+      </div>
     </div>
   );
 }
