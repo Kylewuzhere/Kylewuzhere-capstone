@@ -1,14 +1,12 @@
-"use client";
-
-import React from "react";
 import LearnersTitle from "@/components/LearnersTitle";
-import IframeVisuals from "@/components/QuickSightVisuals";
+import LearnerVisuals from "@/components/LearnerVisuals";
 
+// params is the object that contains the dynamic route parameters
 export default function Learners({ params }) {
   return (
     <div className="w-full h-full bg-blue-light">
-      <LearnersTitle showFilters={false} />
-      <IframeVisuals data={params.id} />
+      <LearnersTitle />
+      <LearnerVisuals learnerId={params.id} />
     </div>
   );
 }
