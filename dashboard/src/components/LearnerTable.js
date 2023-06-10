@@ -140,12 +140,13 @@ const LearnerTable = ({ content }) => {
                       <td className="whitespace-nowrap px-6 py-4">
                         {learner.slack_logged_in || "N/A"}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4 cursor-pointer hover:bg-gray-200 rounded">
-                        <Link href={`/dashboard/learners/${learner.id}`}>
-                          <div className="w-full h-full flex items-center justify-center">
-                            <div className="w-6 h-6 flex items-center justify-center">
-                              <span style={{ fontSize: "14px" }}>&#9658;</span>
-                            </div>
+                      <td className="cursor-pointer hover:bg-gray-200 rounded">
+                        <Link
+                          className="w-full h-full"
+                          href={`/dashboard/learners/${learner.id}`}
+                        >
+                          <div className="px-6 py-4  flex items-left">
+                            <span className="text-[14px]">&#9658;</span>
                           </div>
                         </Link>
                       </td>
