@@ -11,7 +11,7 @@ export default function Cohort({ params }) {
       {/* <CohortDetails cohortId={params.id} />
       < */}
       <CohortVisuals data={params.id} />
-      <div className="absolute inset-x-0 bottom-0 h-1/2 overflow-auto">
+      <div className="absolute inset-x-0 bottom-14 h-1/3 overflow-auto">
         <CohortTable cohortData={params.id} />
       </div>
     </div>
