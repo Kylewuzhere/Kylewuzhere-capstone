@@ -15,7 +15,7 @@ const LearnerContent = ({ selectedFilter }) => {
   const limit = 15;
 
   const fetchLearners = async (search = "") => {
-    let url = `http://localhost:3000/api/learners?limit=${limit}&page=${currentPage}&filter=${selectedFilter}`;
+    let url = `/api/learners?limit=${limit}&page=${currentPage}&filter=${selectedFilter}`;
 
     if (search) {
       url += `&search=${search}`;
