@@ -11,7 +11,7 @@ export default function Learners() {
   };
 
   return (
-    <div className="w-full h-full bg-blue-light">
+    <div className="w-full h-screen bg-blue-light">
       <LearnersTitle
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
