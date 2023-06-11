@@ -40,26 +40,23 @@ const LearnerContent = ({ selectedFilter }) => {
 
   const nextDisabled = learners.length < limit ? true : false;
 
+  if (loading) return <LoadingView />;
+
   return (
-    <>
-      {loading && <LoadingView />}
-      {!loading && (
-        <>
-          <SearchBar search={search} setSearch={setSearch} />
-          <LearnerTable content={learners} />
-          <PaginationControls
-            onPrev={() => {
-              setCurrentPage(currentPage - 1);
-            }}
-            onNext={() => {
-              setCurrentPage(currentPage + 1);
-            }}
-            currentPage={currentPage}
-            nextDisabled={nextDisabled}
-          />
-        </>
-      )}
-    </>
+    <div className="pb-24">
+      <SearchBar search={search} setSearch={setSearch} />
+      <LearnerTable content={learners} />
+      <PaginationControls
+        onPrev={() => {
+          setCurrentPage(currentPage - 1);
+        }}
+        onNext={() => {
+          setCurrentPage(currentPage + 1);
+        }}
+        currentPage={currentPage}
+        nextDisabled={nextDisabled}
+      />
+    </div>
   );
 };
 

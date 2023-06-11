@@ -11,15 +11,13 @@ export default function Learners() {
   };
 
   return (
-    <div className="w-full h-full border-b-2 border-black bg-blue-light">
+    <div className="w-full h-full bg-blue-light">
       <LearnersTitle
         selectedFilter={selectedFilter}
         onFilterChange={handleFilterChange}
         showFilters={true}
       />
-      <div className=" h-[70%] overflow-auto">
-        <LearnerContent selectedFilter={selectedFilter} />
-      </div>
+      <LearnerContent selectedFilter={selectedFilter} />
     </div>
   );
 }
