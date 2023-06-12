@@ -49,7 +49,6 @@ export async function GET(request) {
       LEFT JOIN activity_log ON learners.id = activity_log.learner_id`;
 
   const queryParameters = [];
-
   if (filter === "inactive") {
     sqlQuery += ` WHERE ${filters[filter]}`;
   } else if (filter === "active") {
@@ -62,6 +61,7 @@ export async function GET(request) {
         learners.first_name LIKE $${queryParameters.length + 1} OR
         learners.last_name LIKE $${queryParameters.length + 1}
     )`;
+    queryParameters.push(`${search}%`);
   }
 
   sqlQuery += `
