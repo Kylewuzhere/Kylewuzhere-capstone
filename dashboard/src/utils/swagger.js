@@ -329,6 +329,10 @@ export const getApiDocs = async () => {
                 type: "string",
                 format: "varchar",
               },
+              programme_start: {
+                type: "string",
+                format: "varchar",
+              },
               name: {
                 type: "string",
                 format: "varchar",
@@ -457,6 +461,10 @@ export const getApiDocs = async () => {
                 format: "integer",
               },
               name: {
+                type: "string",
+                format: "varchar",
+              },
+              subject_name: {
                 type: "string",
                 format: "varchar",
               },
