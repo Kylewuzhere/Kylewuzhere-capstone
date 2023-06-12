@@ -1,63 +1,7 @@
 "use client";
-import React, { useState } from "react";
 import Link from "next/link";
 
-const LearnerTable = ({ content }) => {
-  const [sort, setSort] = useState({ column: "name", order: "asc" });
-
-  const handleSort = (column) => {
-    if (sort.column === column) {
-      setSort((prevSort) => ({
-        column,
-        order: prevSort.order === "asc" ? "desc" : "asc",
-      }));
-    } else {
-      setSort({ column, order: "asc" });
-    }
-  };
-
-  const getSortIcon = (column) => {
-    if (sort.column === column) {
-      return sort.order === "asc" ? <span>&#9650;</span> : <span>&#9660;</span>;
-    }
-    return null;
-  };
-
-  const sortedLearners = [...content].sort((a, b) => {
-    const { column, order } = sort;
-
-    if (column === "name") {
-      return order === "asc"
-        ? (a.first_name || "").localeCompare(b.first_name || "")
-        : (b.first_name || "").localeCompare(a.first_name || "");
-    } else if (column === "cohort") {
-      return order === "asc"
-        ? (a.cohort_name || "").localeCompare(b.cohort_name || "")
-        : (b.cohort_name || "").localeCompare(a.cohort_name || "");
-    } else if (column === "iQualify") {
-      return order === "asc"
-        ? (a.iqualify_logged_in || "").localeCompare(b.iqualify_logged_in || "")
-        : (b.iqualify_logged_in || "").localeCompare(
-            a.iqualify_logged_in || ""
-          );
-    } else if (column === "startDate") {
-      return order === "asc"
-        ? (a.programme_start || "").localeCompare(b.programme_start || "")
-        : (b.programme_start || "").localeCompare(a.programme_start || "");
-    } else if (column === "slack") {
-      return order === "asc"
-        ? (a.slack_logged_in || "").localeCompare(b.slack_logged_in || "")
-        : (b.slack_logged_in || "").localeCompare(a.slack_logged_in || "");
-    } else if (column === "programmeLevel") {
-      const levelA = typeof a.programme === "number" ? a.programme : 0;
-      const levelB = typeof b.programme === "number" ? b.programme : 0;
-
-      return order === "asc" ? levelA - levelB : levelB - levelA;
-    }
-
-    return 0;
-  });
-
+const LearnerTable = ({ content, onSort, getSortIcon }) => {
   return (
     <div>
       {content.length === 0 ? (
@@ -71,42 +15,42 @@ const LearnerTable = ({ content }) => {
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("name")}
+                onClick={() => onSort("name")}
               >
                 Name {getSortIcon("name")}
               </th>
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("cohort")}
+                onClick={() => onSort("cohort")}
               >
                 Cohort {getSortIcon("cohort")}
               </th>
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("startDate")}
+                onClick={() => onSort("startDate")}
               >
                 Start Date {getSortIcon("startDate")}
               </th>
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("programmeLevel")}
+                onClick={() => onSort("programmeLevel")}
               >
                 Programme Level {getSortIcon("programmeLevel")}
               </th>
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("iQualify")}
+                onClick={() => onSort("iQualify")}
               >
                 iQualify (Last log in) {getSortIcon("iQualify")}
               </th>
               <th
                 scope="col"
                 className="px-6 py-4 cursor-pointer"
-                onClick={() => handleSort("slack")}
+                onClick={() => onSort("slack")}
               >
                 Slack (Last active) {getSortIcon("slack")}
               </th>
@@ -116,7 +60,7 @@ const LearnerTable = ({ content }) => {
             </tr>
           </thead>
           <tbody>
-            {sortedLearners.map((learner) => (
+            {content.map((learner) => (
               <tr className="border-b dark:border-neutral-500" key={learner.id}>
                 <td className="whitespace-nowrap px-6 py-4">
                   {learner.first_name + " " + learner.last_name}
