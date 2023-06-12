@@ -11,7 +11,20 @@ export async function GET(request) {
   const limit = searchParams.get("limit");
   const page = searchParams.get("page");
   const filter = searchParams.get("filter");
+  const sort = searchParams.get("sort");
+  const order = searchParams.get("order");
   const offset = limit * (page - 1);
+
+  const sortOptions = {
+    name: "learners.first_name",
+    cohort: "cohorts.name",
+    startDate: "cohorts.programme_start",
+    programmeLevel: "learners.programme",
+    iQualify: "iqualify_logged_in",
+    slack: "slack_logged_in",
+  };
+
+  const sortColumn = sortOptions[sort] || "learners.first_name";
 
   const filters = {
     inactive: "current_subject_id = 999",
@@ -59,7 +72,7 @@ export async function GET(request) {
       cohorts.programme_start,
       learners.programme
     ORDER BY
-      learners.first_name
+      ${sortColumn} ${order}
     LIMIT ${limit}
     OFFSET ${offset}`;
 
