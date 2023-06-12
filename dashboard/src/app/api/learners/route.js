@@ -59,8 +59,8 @@ export async function GET(request) {
   if (search) {
     sqlQuery += `
       ${filter === "inactive" || filter === "active" ? "AND" : "WHERE"} (
-        learners.first_name LIKE $1 OR
-        learners.last_name LIKE $1
+        learners.first_name LIKE $${queryParameters.length + 1} OR
+        learners.last_name LIKE $${queryParameters.length + 1}
     )`;
   }
 
