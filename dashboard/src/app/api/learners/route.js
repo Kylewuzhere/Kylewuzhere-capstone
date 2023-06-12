@@ -78,8 +78,6 @@ export async function GET(request) {
     LIMIT ${limit}
     OFFSET ${offset}`;
 
-  const searchParam = search ? [`${search}%`] : [];
-
-  const { rows } = await pool.query(sqlQuery, searchParam);
+  const { rows } = await pool.query(sqlQuery, queryParameters);
   return NextResponse.json({ rows });
 }
