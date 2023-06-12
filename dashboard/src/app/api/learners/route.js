@@ -48,6 +48,7 @@ export async function GET(request) {
       JOIN cohorts ON learners.cohort_id = cohorts.id
       LEFT JOIN activity_log ON learners.id = activity_log.learner_id`;
 
+  const queryParameters = [];
   if (filter === "inactive") {
     sqlQuery += ` WHERE ${filters[filter]}`;
   } else if (filter === "active") {
@@ -57,9 +58,10 @@ export async function GET(request) {
   if (search) {
     sqlQuery += `
       ${filter === "inactive" || filter === "active" ? "AND" : "WHERE"} (
-        learners.first_name LIKE $1 OR
-        learners.last_name LIKE $1
+        learners.first_name LIKE $${queryParameters.length + 1} OR
+        learners.last_name LIKE $${queryParameters.length + 1}
     )`;
+    queryParameters.push(`${search}%`);
   }
 
   sqlQuery += `
@@ -76,8 +78,6 @@ export async function GET(request) {
     LIMIT ${limit}
     OFFSET ${offset}`;
 
-  const searchParam = search ? [`${search}%`] : [];
-
-  const { rows } = await pool.query(sqlQuery, searchParam);
+  const { rows } = await pool.query(sqlQuery, queryParameters);
   return NextResponse.json({ rows });
 }
