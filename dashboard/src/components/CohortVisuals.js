@@ -5,7 +5,7 @@ const CohortVisuals = ({ data }) => {
       <div>
         <CohortDetails cohortId={data} />
       </div>
-      <div className="grid grid-cols-2 col-span-2 gap-2 flex justify-center">
+      <div className="grid grid-cols-2 col-span-2 gap-2 justify-center">
         <iframe
           className="h-[420px] col-span-2 w-full flex self-center"
           src={`https://ap-southeast-2.quicksight.aws.amazon.com/sn/embed/share/accounts/236143717967/dashboards/6d93df33-7637-429a-9d53-c60d58587de0?directory_alias=diquicksights?#p.cohortId=${data}`}
