@@ -1,6 +1,5 @@
 import pool from "@/app/db";
 import { NextResponse } from "next/server";
-import formatChecker from "@/utils/formatChecker";
 
 export async function GET(request, { params }) {
   const { searchParams } = new URL(request.url);
@@ -29,9 +28,17 @@ export async function GET(request, { params }) {
   OFFSET ${offset}`;
 
   try {
-    const checkedId = formatChecker(id);
+    if (!id) {
+      return NextResponse.json(
+        {
+          error: "Learner Not Found",
+          rows,
+        },
+        { status: 404 }
+      );
+    }
     const { rows } = await pool.query(query, [id]);
-    if (rows.length < 1 || !checkedId) {
+    if (rows.length < 1) {
       return NextResponse.json(
         {
           error: "Learner Not Found",
