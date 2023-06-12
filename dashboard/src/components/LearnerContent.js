@@ -10,12 +10,14 @@ const LearnerContent = ({ selectedFilter }) => {
   const [learners, setLearners] = useState([]);
   const [search, setSearch] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [sort, setSort] = useState({ column: "name", order: "asc" });
   const searchTimeoutRef = useRef(null);
 
   const limit = 15;
 
   const fetchLearners = async (search = "") => {
-    let url = `/api/learners?limit=${limit}&page=${currentPage}&filter=${selectedFilter}`;
+    let url = `/api/learners?limit=${limit}&page=${currentPage}&filter=${selectedFilter}&sort=${sort.column}&order=${sort.order}
+    `;
 
     if (search) {
       url += `&search=${search}`;
@@ -36,7 +38,25 @@ const LearnerContent = ({ selectedFilter }) => {
 
   useEffect(() => {
     fetchLearners();
-  }, [currentPage, selectedFilter]);
+  }, [currentPage, selectedFilter, sort]);
+
+  const onSort = (column) => {
+    if (sort.column === column) {
+      setSort((prevSort) => ({
+        column,
+        order: prevSort.order === "asc" ? "desc" : "asc",
+      }));
+    } else {
+      setSort({ column, order: "asc" });
+    }
+  };
+
+  const getSortIcon = (column) => {
+    if (sort.column === column) {
+      return sort.order === "asc" ? <span>&#9650;</span> : <span>&#9660;</span>;
+    }
+    return null;
+  };
 
   const nextDisabled = learners.length < limit ? true : false;
 
@@ -45,7 +65,11 @@ const LearnerContent = ({ selectedFilter }) => {
   return (
     <div>
       <SearchBar search={search} setSearch={setSearch} />
-      <LearnerTable content={learners} />
+      <LearnerTable
+        content={learners}
+        onSort={onSort}
+        getSortIcon={getSortIcon}
+      />
       <PaginationControls
         onPrev={() => {
           setCurrentPage(currentPage - 1);
