@@ -10,7 +10,7 @@ const PaginationControls = ({
   const prevDisabled = currentPage > 1 ? false : true;
 
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center py-5">
       <button
         className={prevDisabled ? inactiveClass : activeClass}
         onClick={onPrev}

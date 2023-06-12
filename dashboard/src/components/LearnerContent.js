@@ -43,7 +43,7 @@ const LearnerContent = ({ selectedFilter }) => {
   if (loading) return <LoadingView />;
 
   return (
-    <div className="pb-24 bg-blue-light">
+    <div>
       <SearchBar search={search} setSearch={setSearch} />
       <LearnerTable content={learners} />
       <PaginationControls
