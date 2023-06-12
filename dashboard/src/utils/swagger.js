@@ -106,10 +106,10 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect",
+                description: "Redirect When Unauthenticated",
                 headers: {
                   Location: {
-                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort%2F{id}`,
+                    description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort%2F{id}`,
                     schema: {
                       type: "string",
                     },
@@ -117,25 +117,7 @@ export const getApiDocs = async () => {
                 },
               },
               404: {
-                description: "cohort not found",
-                content: {
-                  "application/json": {
-                    schema: {
-                      type: "object",
-                      properties: {
-                        rows: {
-                          type: "array",
-                          items: {
-                            $ref: "#/components/schemas/cohort_learners",
-                          },
-                        },
-                      },
-                    },
-                    example: {
-                      rows: [],
-                    },
-                  },
-                },
+                $ref: "#/components/responses/NotFound",
               },
             },
           },
@@ -151,8 +133,61 @@ export const getApiDocs = async () => {
               {
                 name: "search",
                 in: "query",
-                description: "name of the search query",
+                description: "Search the name of Learner.",
                 required: false,
+                schema: {
+                  type: "string",
+                  format: "varchar",
+                },
+              },
+              {
+                name: "limit",
+                in: "query",
+                description: "Limit the retrieved data to the set number",
+                required: true,
+                schema: {
+                  type: "integer",
+                  format: "integer",
+                },
+              },
+              {
+                name: "page",
+                in: "query",
+                description:
+                  "Return limited data, under the offset: (page - 1).",
+                required: true,
+                schema: {
+                  type: "integer",
+                  format: "integer",
+                },
+              },
+              {
+                name: "filter",
+                in: "query",
+                description:
+                  "Filter returned Learners by: Active, Inactive, All (returns both)",
+                required: false,
+                schema: {
+                  type: "string",
+                  format: "varchar",
+                },
+              },
+              {
+                name: "sort",
+                in: "query",
+                description:
+                  "Sort Learners by the respective columns of the table.",
+                required: true,
+                schema: {
+                  type: "string",
+                  format: "varchar",
+                },
+              },
+              {
+                name: "order",
+                in: "query",
+                description: "Order the sort by: ascending & descending.",
+                required: true,
                 schema: {
                   type: "string",
                   format: "varchar",
@@ -179,36 +214,21 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect",
+                description: "Redirect When Unauthenticated",
                 headers: {
                   Location: {
-                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners  Applies to search query as well`,
+                    description: `: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners  Applies to search query as well`,
                     schema: {
                       type: "string",
                     },
                   },
                 },
               },
+              400: {
+                $ref: "#/components/responses/BadRequest",
+              },
               404: {
-                description: "No learners found",
-                content: {
-                  "application/json": {
-                    schema: {
-                      type: "object",
-                      properties: {
-                        rows: {
-                          type: "array",
-                          items: {
-                            $ref: "#/components/schemas/learners",
-                          },
-                        },
-                      },
-                    },
-                    example: {
-                      rows: [],
-                    },
-                  },
-                },
+                $ref: "#/components/responses/NotFound",
               },
             },
           },
@@ -251,10 +271,10 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect",
+                description: "Redirect When Unauthenticated",
                 headers: {
                   Location: {
-                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners%2F{id}`,
+                    description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners%2F{id}`,
                     schema: {
                       type: "string",
                     },
@@ -262,25 +282,7 @@ export const getApiDocs = async () => {
                 },
               },
               404: {
-                description: "learner not found",
-                content: {
-                  "application/json": {
-                    schema: {
-                      type: "object",
-                      properties: {
-                        rows: {
-                          type: "array",
-                          items: {
-                            $ref: "#/components/schemas/learners_solo",
-                          },
-                        },
-                      },
-                    },
-                    example: {
-                      rows: [],
-                    },
-                  },
-                },
+                $ref: "#/components/responses/NotFound",
               },
             },
           },
@@ -441,6 +443,74 @@ export const getApiDocs = async () => {
               name: {
                 type: "string",
                 format: "varchar",
+              },
+            },
+          },
+          rows: {
+            type: "array",
+            items: {
+              type: "object",
+            },
+          },
+          bad_response: {
+            type: "string",
+            format: "varchar",
+          },
+        },
+        responses: {
+          NotFound: {
+            description: "Not Found",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    error: {
+                      $ref: "#/components/schemas/bad_response",
+                    },
+                    rows: {
+                      $ref: "#/components/schemas/rows",
+                    },
+                  },
+                  example: {
+                    error: "Learner Not Found",
+                    rows: [],
+                  },
+                },
+              },
+            },
+          },
+          BadRequest: {
+            description: "Request does not contain the required parameter(s)",
+            content: {
+              "application/json": {
+                schema: {
+                  type: "object",
+                  properties: {
+                    error: {
+                      $ref: "#/components/schemas/bad_response",
+                    },
+                    rows: {
+                      $ref: "#/components/schemas/rows",
+                    },
+                  },
+                  example: {
+                    error: "Bad Request",
+                    rows: [],
+                  },
+                },
+              },
+            },
+          },
+          Error500: {
+            description: "Internal Server Error",
+            content: {
+              "application/json": {
+                schema: {
+                  error: {
+                    type: "object",
+                  },
+                },
               },
             },
           },
