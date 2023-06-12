@@ -80,12 +80,16 @@ export async function GET(request) {
 
   try {
     if (!limit || !page || !sort || !order) {
-      return NextResponse.json({ rows: [] }, { status: 400 });
+      return NextResponse.json(
+        { error: "Bad Request", rows: [] },
+        { status: 400 }
+      );
     } else {
       const { rows } = await pool.query(sqlQuery, queryParameters);
-      if (rows.length === 0 && search !== !search) {
+      if (rows.length === 0 && !search) {
         return NextResponse.json(
           {
+            error: "Learner Not Found",
             rows,
           },
           { status: 404 }
