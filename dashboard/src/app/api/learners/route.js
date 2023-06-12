@@ -48,6 +48,8 @@ export async function GET(request) {
       JOIN cohorts ON learners.cohort_id = cohorts.id
       LEFT JOIN activity_log ON learners.id = activity_log.learner_id`;
 
+  const queryParameters = [];
+
   if (filter === "inactive") {
     sqlQuery += ` WHERE ${filters[filter]}`;
   } else if (filter === "active") {
