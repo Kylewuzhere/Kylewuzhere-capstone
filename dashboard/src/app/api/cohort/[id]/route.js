@@ -1,5 +1,6 @@
 import pool from "@/app/db";
 import { NextResponse } from "next/server";
+import formatChecker from "@/utils/formatChecker";
 
 export async function GET(request, { params }) {
   const { searchParams } = new URL(request.url);
@@ -28,24 +29,18 @@ export async function GET(request, { params }) {
   OFFSET ${offset}`;
 
   try {
-    const regex = new RegExp(
-      /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi
-    );
-    const testInput = regex.test(id);
-    if (!id || !testInput) {
-      return NextResponse.json({ rows: [] }, { status: 400 });
+    const checkedId = formatChecker(id);
+    const { rows } = await pool.query(query, [id]);
+    if (rows.length < 1 || !checkedId) {
+      return NextResponse.json(
+        {
+          error: "Learner Not Found",
+          rows,
+        },
+        { status: 404 }
+      );
     } else {
-      const { rows } = await pool.query(query, [id]);
-      if (rows.length < 1) {
-        return NextResponse.json(
-          {
-            rows,
-          },
-          { status: 404 }
-        );
-      } else {
-        return NextResponse.json({ rows }, { status: 200 });
-      }
+      return NextResponse.json({ rows }, { status: 200 });
     }
   } catch (error) {
     console.error("Error fetching learner:", error);
