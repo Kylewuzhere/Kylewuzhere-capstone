@@ -1,10 +1,14 @@
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import LearnerTable from "@/components/LearnerTable";
 import { rows } from "../data/learnerData.json";
 
 beforeEach(async () => {
-  render(<LearnerTable content={rows} />);
+  const onSort = jest.fn();
+  const getSortIcon = jest.fn();
+
+  render(
+    <LearnerTable content={rows} onSort={onSort} getSortIcon={getSortIcon} />
+  );
 });
 
 const columns = [
@@ -36,18 +40,5 @@ describe("LearnerTable", () => {
     expect(table).toBeInTheDocument();
     expect(rows).toHaveLength(6);
     expect(rows[1]).toHaveTextContent("Amii Juan");
-  });
-  it("renders a table with data and sorts by name in descending order", async () => {
-    const table = await screen.findByRole("table");
-    const nameHeader = screen.getAllByRole("columnheader")[0];
-    const sortIcon = screen.getByText("▲");
-
-    expect(table).toBeInTheDocument();
-    expect(nameHeader).toBeInTheDocument();
-    expect(sortIcon).toBeInTheDocument();
-    await userEvent.click(nameHeader);
-
-    const firstRow = screen.getAllByRole("row")[1];
-    expect(firstRow).toHaveTextContent("Mariam Saura");
   });
 });

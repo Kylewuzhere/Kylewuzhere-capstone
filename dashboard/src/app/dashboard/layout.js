@@ -14,7 +14,7 @@ export default async function RootLayout({ children }) {
   return (
     <>
       <Sidebar />
-      <div className="pt-12 flex justify-center items-center h-screen ml-40">
+      <div className="h-[calc(100vh-3.5rem)] justify-center ml-40">
         {children}
       </div>
     </>

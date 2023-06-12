@@ -11,7 +11,20 @@ export async function GET(request) {
   const limit = searchParams.get("limit");
   const page = searchParams.get("page");
   const filter = searchParams.get("filter");
+  const sort = searchParams.get("sort");
+  const order = searchParams.get("order");
   const offset = limit * (page - 1);
+
+  const sortOptions = {
+    name: "learners.first_name",
+    cohort: "cohorts.name",
+    startDate: "cohorts.programme_start",
+    programmeLevel: "learners.programme",
+    iQualify: "iqualify_logged_in",
+    slack: "slack_logged_in",
+  };
+
+  const sortColumn = sortOptions[sort] || "learners.first_name";
 
   const filters = {
     inactive: "current_subject_id = 999",
@@ -35,6 +48,7 @@ export async function GET(request) {
       JOIN cohorts ON learners.cohort_id = cohorts.id
       LEFT JOIN activity_log ON learners.id = activity_log.learner_id`;
 
+  const queryParameters = [];
   if (filter === "inactive") {
     sqlQuery += ` WHERE ${filters[filter]}`;
   } else if (filter === "active") {
@@ -44,9 +58,10 @@ export async function GET(request) {
   if (search) {
     sqlQuery += `
       ${filter === "inactive" || filter === "active" ? "AND" : "WHERE"} (
-        learners.first_name LIKE $1 OR
-        learners.last_name LIKE $1
+        learners.first_name LIKE $${queryParameters.length + 1} OR
+        learners.last_name LIKE $${queryParameters.length + 1}
     )`;
+    queryParameters.push(`${search}%`);
   }
 
   sqlQuery += `
@@ -59,12 +74,10 @@ export async function GET(request) {
       cohorts.programme_start,
       learners.programme
     ORDER BY
-      learners.first_name
+      ${sortColumn} ${order}
     LIMIT ${limit}
     OFFSET ${offset}`;
 
-  const searchParam = search ? [`${search}%`] : [];
-
-  const { rows } = await pool.query(sqlQuery, searchParam);
+  const { rows } = await pool.query(sqlQuery, queryParameters);
   return NextResponse.json({ rows });
 }
