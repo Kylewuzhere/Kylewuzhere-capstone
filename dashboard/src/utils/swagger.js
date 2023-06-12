@@ -64,6 +64,9 @@ export const getApiDocs = async () => {
                   },
                 },
               },
+              500: {
+                $ref: "#/components/responses/Error500",
+              },
             },
           },
         },
@@ -118,6 +121,9 @@ export const getApiDocs = async () => {
               },
               404: {
                 $ref: "#/components/responses/NotFound",
+              },
+              500: {
+                $ref: "#/components/responses/Error500",
               },
             },
           },
@@ -230,6 +236,9 @@ export const getApiDocs = async () => {
               404: {
                 $ref: "#/components/responses/NotFound",
               },
+              500: {
+                $ref: "#/components/responses/Error500",
+              },
             },
           },
         },
@@ -283,6 +292,9 @@ export const getApiDocs = async () => {
               },
               404: {
                 $ref: "#/components/responses/NotFound",
+              },
+              500: {
+                $ref: "#/components/responses/Error500",
               },
             },
           },
@@ -456,6 +468,42 @@ export const getApiDocs = async () => {
             type: "string",
             format: "varchar",
           },
+          error: {
+            properties: {
+              length: {
+                type: "integer",
+                format: "integer",
+              },
+              name: {
+                type: "string",
+                format: "varchar",
+              },
+              severity: {
+                type: "string",
+                format: "varchar",
+              },
+              code: {
+                type: "string",
+                format: "varchar",
+              },
+              position: {
+                type: "string",
+                format: "varchar",
+              },
+              file: {
+                type: "string",
+                format: "varchar",
+              },
+              line: {
+                type: "string",
+                format: "varchar",
+              },
+              routine: {
+                type: "string",
+                format: "varchar",
+              },
+            },
+          },
         },
         responses: {
           NotFound: {
@@ -507,8 +555,18 @@ export const getApiDocs = async () => {
             content: {
               "application/json": {
                 schema: {
+                  $ref: "#/components/schemas/error",
+                },
+                example: {
                   error: {
-                    type: "object",
+                    length: 99,
+                    name: "error",
+                    severity: "ERROR",
+                    code: "42069",
+                    position: "9999",
+                    file: "filename",
+                    line: "9999",
+                    routine: "scanner_yyerror",
                   },
                 },
               },
