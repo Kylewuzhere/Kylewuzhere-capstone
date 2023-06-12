@@ -57,15 +57,15 @@ export default function Cohorts() {
   };
 
   return (
-    <div className="w-full h-full bg-grey-light">
-      <div className="w-full mb-2 border-b-2 border-black">
+    <div className="w-full min-h-full bg-grey-light pb-14">
+      <div className="w-full border-b-2 border-black">
         <CohortTitle
           selectedFilter={selectedFilter}
           onFilterChange={handleFilterChange}
           showFilters={true}
         />
       </div>
-      <div className="mx-auto max-w-screen-md mt-10">
+      <div className="mx-auto max-w-screen-md mt-10 pb-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {filteredCohorts.map((cohort) => (
             <Link
