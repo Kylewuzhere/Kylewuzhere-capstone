@@ -36,7 +36,7 @@ export const getApiDocs = async () => {
             operationId: "cohort",
             responses: {
               200: {
-                description: "successful operation",
+                description: "OK",
                 content: {
                   "application/json": {
                     schema: {
@@ -54,10 +54,11 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect",
+                description:
+                  "Redirect When Unauthenticated (may return a 200 response code & html body)",
                 headers: {
                   Location: {
-                    description: `Redirect when unauthenticated: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort`,
+                    description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort`,
                     schema: {
                       type: "string",
                     },
@@ -91,7 +92,7 @@ export const getApiDocs = async () => {
             ],
             responses: {
               200: {
-                description: "successful operation",
+                description: "OK",
                 content: {
                   "application/json": {
                     schema: {
@@ -109,7 +110,8 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect When Unauthenticated",
+                description:
+                  "Redirect When Unauthenticated (may return a 200 response code & html body)",
                 headers: {
                   Location: {
                     description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Fcohort%2F{id}`,
@@ -133,7 +135,7 @@ export const getApiDocs = async () => {
             tags: ["learners"],
             summary: "Retrieve a list of learners, or learner(s) queried",
             description:
-              "Retrieve a list of learners, with a lot of things per learner within the list. _ You can also query for a learner(s) with a search qeury.",
+              "Retrieve a list of learners, with a lot of things per learner within the list.  You can also query for a learner(s) with a search qeury.",
             operationId: "learners",
             parameters: [
               {
@@ -202,7 +204,7 @@ export const getApiDocs = async () => {
             ],
             responses: {
               200: {
-                description: "successful operation",
+                description: "OK",
                 content: {
                   "application/json": {
                     schema: {
@@ -220,10 +222,11 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect When Unauthenticated",
+                description:
+                  "Redirect When Unauthenticated (may return a 200 response code & html body)",
                 headers: {
                   Location: {
-                    description: `: ${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners  Applies to search query as well`,
+                    description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners  Applies to search query as well`,
                     schema: {
                       type: "string",
                     },
@@ -262,7 +265,7 @@ export const getApiDocs = async () => {
             ],
             responses: {
               200: {
-                description: "successful operation",
+                description: "OK",
                 content: {
                   "application/json": {
                     schema: {
@@ -280,7 +283,8 @@ export const getApiDocs = async () => {
                 },
               },
               307: {
-                description: "Redirect When Unauthenticated",
+                description:
+                  "Redirect When Unauthenticated (may return a 200 response code & html body)",
                 headers: {
                   Location: {
                     description: `${process.env.NEXTAUTH_URL}/api/auth/signin?callbackUrl=%2Fapi%2Flearners%2F{id}`,
