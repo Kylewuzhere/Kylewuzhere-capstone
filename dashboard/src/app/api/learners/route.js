@@ -86,7 +86,7 @@ export async function GET(request) {
       );
     } else {
       const { rows } = await pool.query(sqlQuery, queryParameters);
-      if (rows.length === 0 && !search) {
+      if (search && rows.length === 0) {
         return NextResponse.json(
           {
             error: "Learner Not Found",
