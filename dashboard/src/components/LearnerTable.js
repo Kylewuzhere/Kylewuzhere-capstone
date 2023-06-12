@@ -1,163 +1,100 @@
 "use client";
-import React, { useState } from "react";
 import Link from "next/link";
 
-const LearnerTable = ({ content }) => {
-  const [sort, setSort] = useState({ column: "name", order: "asc" });
-
-  const handleSort = (column) => {
-    if (sort.column === column) {
-      setSort((prevSort) => ({
-        column,
-        order: prevSort.order === "asc" ? "desc" : "asc",
-      }));
-    } else {
-      setSort({ column, order: "asc" });
-    }
-  };
-
-  const getSortIcon = (column) => {
-    if (sort.column === column) {
-      return sort.order === "asc" ? <span>&#9650;</span> : <span>&#9660;</span>;
-    }
-    return null;
-  };
-
-  const sortedLearners = [...content].sort((a, b) => {
-    const { column, order } = sort;
-
-    if (column === "name") {
-      return order === "asc"
-        ? (a.first_name || "").localeCompare(b.first_name || "")
-        : (b.first_name || "").localeCompare(a.first_name || "");
-    } else if (column === "cohort") {
-      return order === "asc"
-        ? (a.cohort_name || "").localeCompare(b.cohort_name || "")
-        : (b.cohort_name || "").localeCompare(a.cohort_name || "");
-    } else if (column === "iQualify") {
-      return order === "asc"
-        ? (a.iqualify_logged_in || "").localeCompare(b.iqualify_logged_in || "")
-        : (b.iqualify_logged_in || "").localeCompare(
-            a.iqualify_logged_in || ""
-          );
-    } else if (column === "startDate") {
-      return order === "asc"
-        ? (a.programme_start || "").localeCompare(b.programme_start || "")
-        : (b.programme_start || "").localeCompare(a.programme_start || "");
-    } else if (column === "slack") {
-      return order === "asc"
-        ? (a.slack_logged_in || "").localeCompare(b.slack_logged_in || "")
-        : (b.slack_logged_in || "").localeCompare(a.slack_logged_in || "");
-    } else if (column === "programmeLevel") {
-      const levelA = typeof a.programme === "number" ? a.programme : 0;
-      const levelB = typeof b.programme === "number" ? b.programme : 0;
-
-      return order === "asc" ? levelA - levelB : levelB - levelA;
-    }
-
-    return 0;
-  });
-
+const LearnerTable = ({ content, onSort, getSortIcon }) => {
   return (
-    <div className="flex flex-col overflow-x-auto">
-      <div className="sm:-mx-6 lg:-mx-8">
-        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
-          <div className="overflow-x-auto">
-            {content.length === 0 ? (
-              <p className="mx-5 my-5">No Learners Found</p>
-            ) : (
-              <table className="min-w-full text-left text-sm font-light">
-                <thead className="border-b font-medium dark:border-neutral-500">
-                  <tr>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("name")}
-                    >
-                      Name {getSortIcon("name")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("cohort")}
-                    >
-                      Cohort {getSortIcon("cohort")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("startDate")}
-                    >
-                      Start Date {getSortIcon("startDate")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("programmeLevel")}
-                    >
-                      Programme Level {getSortIcon("programmeLevel")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("iQualify")}
-                    >
-                      iQualify (Last log in) {getSortIcon("iQualify")}
-                    </th>
-                    <th
-                      scope="col"
-                      className="px-6 py-4 cursor-pointer"
-                      onClick={() => handleSort("slack")}
-                    >
-                      Slack (Last active) {getSortIcon("slack")}
-                    </th>
-                    <th scope="col" className="px-6 py-4">
-                      More
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {sortedLearners.map((learner) => (
-                    <tr
-                      className="border-b dark:border-neutral-500"
-                      key={learner.id}
-                    >
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.first_name + " " + learner.last_name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.cohort_name}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.programme_start}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.programme}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.iqualify_logged_in}
-                      </td>
-                      <td className="whitespace-nowrap px-6 py-4">
-                        {learner.slack_logged_in || "N/A"}
-                      </td>
-                      <td className="cursor-pointer hover:bg-gray-200 rounded">
-                        <Link
-                          className="w-full h-full"
-                          href={`/dashboard/learners/${learner.id}`}
-                        >
-                          <div className="px-6 py-4  flex items-left">
-                            <span className="text-[14px]">&#9658;</span>
-                          </div>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+    <div>
+      {content.length === 0 ? (
+        <div>
+          <p className="mx-5 my-5">No Learners Found</p>
         </div>
-      </div>
+      ) : (
+        <table className="min-w-full text-left text-sm font-light">
+          <thead className="border-b font-medium dark:border-neutral-500">
+            <tr>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("name")}
+              >
+                Name {getSortIcon("name")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("cohort")}
+              >
+                Cohort {getSortIcon("cohort")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("startDate")}
+              >
+                Start Date {getSortIcon("startDate")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("programmeLevel")}
+              >
+                Programme Level {getSortIcon("programmeLevel")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("iQualify")}
+              >
+                iQualify (Last log in) {getSortIcon("iQualify")}
+              </th>
+              <th
+                scope="col"
+                className="px-6 py-4 cursor-pointer"
+                onClick={() => onSort("slack")}
+              >
+                Slack (Last active) {getSortIcon("slack")}
+              </th>
+              <th scope="col" className="px-6 py-4">
+                More
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {content.map((learner) => (
+              <tr className="border-b dark:border-neutral-500" key={learner.id}>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.first_name + " " + learner.last_name}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.cohort_name}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.programme_start}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.programme}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.iqualify_logged_in}
+                </td>
+                <td className="whitespace-nowrap px-6 py-4">
+                  {learner.slack_logged_in || "N/A"}
+                </td>
+                <td className="cursor-pointer hover:bg-gray-200 rounded">
+                  <Link
+                    className="w-full h-full"
+                    href={`/dashboard/learners/${learner.id}`}
+                  >
+                    <div className="px-6 py-4  flex items-left">
+                      <span className="text-[14px]">&#9658;</span>
+                    </div>
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
