@@ -78,6 +78,24 @@ export async function GET(request) {
     LIMIT ${limit}
     OFFSET ${offset}`;
 
-  const { rows } = await pool.query(sqlQuery, queryParameters);
-  return NextResponse.json({ rows });
+  try {
+    if (!limit || !page || !sort || !order) {
+      return NextResponse.json({ rows: [] }, { status: 400 });
+    } else {
+      const { rows } = await pool.query(sqlQuery, queryParameters);
+      if (rows.length === 0 && search !== !search) {
+        return NextResponse.json(
+          {
+            rows,
+          },
+          { status: 404 }
+        );
+      } else {
+        return NextResponse.json({ rows }, { status: 200 });
+      }
+    }
+  } catch (error) {
+    console.error("Error fetching learner:", error);
+    return NextResponse.json({ error }, { status: 500 });
+  }
 }
