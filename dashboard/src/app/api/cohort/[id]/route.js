@@ -4,9 +4,6 @@ import { NextResponse } from "next/server";
 export async function GET(request, { params }) {
   const { searchParams } = new URL(request.url);
   const id = params.id;
-  if (!id) {
-    return NextResponse.error(400, "Missing id");
-  }
 
   const limit = searchParams.get("limit");
   const page = searchParams.get("page");
@@ -31,10 +28,29 @@ export async function GET(request, { params }) {
   OFFSET ${offset}`;
 
   try {
+    if (!id) {
+      return NextResponse.json(
+        {
+          error: "Learner Not Found",
+          rows,
+        },
+        { status: 404 }
+      );
+    }
     const { rows } = await pool.query(query, [id]);
-    return NextResponse.json({ rows });
+    if (rows.length < 1) {
+      return NextResponse.json(
+        {
+          error: "Learner Not Found",
+          rows,
+        },
+        { status: 404 }
+      );
+    } else {
+      return NextResponse.json({ rows }, { status: 200 });
+    }
   } catch (error) {
     console.error("Error fetching learner:", error);
-    return NextResponse.error(500, "Internal server error");
+    return NextResponse.json({ error }, { status: 500 });
   }
 }
